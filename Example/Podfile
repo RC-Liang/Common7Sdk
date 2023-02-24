@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '12.0'
+
+target 'Common7Sdk_Example' do
+  pod 'Common7Sdk', :path => '../'
+
+  target 'Common7Sdk_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

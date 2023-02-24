@@ -1,0 +1,16 @@
+PODS:
+  - Common7Sdk (0.1.0)
+
+DEPENDENCIES:
+  - Common7Sdk (from `../`)
+
+EXTERNAL SOURCES:
+  Common7Sdk:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Common7Sdk: 97b149cc6fc80988857ab1d42d854cb694cde409
+
+PODFILE CHECKSUM: 585454298285ff1c783d98b85571d21cfd31090c
+
+COCOAPODS: 1.11.2
