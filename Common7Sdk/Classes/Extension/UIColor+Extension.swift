@@ -10,9 +10,14 @@ public extension UIColor {
         var g: CGFloat = 0
         var b: CGFloat = 0
         
-        var hex: String = value
+        var hex: String = value.lowercased()
         if hex.hasPrefix("#") {
             let index = hex.index(hex.startIndex, offsetBy: 1)
+            hex = String(hex[index...])
+        }
+        
+        if hex.hasPrefix("0x") {
+            let index = hex.index(hex.startIndex, offsetBy: 2)
             hex = String(hex[index...])
         }
         
