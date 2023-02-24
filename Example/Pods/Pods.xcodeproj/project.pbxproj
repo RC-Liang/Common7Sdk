@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		04BA860629A72F8D001D14E4 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BA860529A72F8D001D14E4 /* NSObject+Extension.swift */; };
+		04BA860A29A84B59001D14E4 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BA860929A84B59001D14E4 /* UIColor+Extension.swift */; };
 		2DD20D241EA51068156148FBBBEF26EA /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07246A0D2DEBBE2948F7B20DA10ACE9 /* String+Extension.swift */; };
 		47FD160F23167640A1459DFB53619B2D /* UIKitCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F10594C0DE7673EE43D4CED36192A /* UIKitCommon.swift */; };
 		4B2A64A90F8B3B5C0A5BC04BBC79E432 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		0326AA8A02143D63E6F04A171052B811 /* Pods-Common7Sdk_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Common7Sdk_Example.release.xcconfig"; sourceTree = "<group>"; };
 		04BA860529A72F8D001D14E4 /* NSObject+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
+		04BA860929A84B59001D14E4 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		093CF79A424D4AEDF6607C18EF1B4329 /* Pods-Common7Sdk_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Common7Sdk_Example-Info.plist"; sourceTree = "<group>"; };
 		093E551D14D999B0FD93426B722C9807 /* Pods-Common7Sdk_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Common7Sdk_Tests-umbrella.h"; sourceTree = "<group>"; };
 		094C1BAC488E9965EB50F7E72990BB59 /* Common7Sdk.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = Common7Sdk.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -182,6 +184,7 @@
 			children = (
 				A07246A0D2DEBBE2948F7B20DA10ACE9 /* String+Extension.swift */,
 				04BA860529A72F8D001D14E4 /* NSObject+Extension.swift */,
+				04BA860929A84B59001D14E4 /* UIColor+Extension.swift */,
 			);
 			name = Extension;
 			path = Common7Sdk/Classes/Extension;
@@ -385,6 +388,7 @@
 				A4B7C05B1B768526FE03CF9297D52641 /* Common7Sdk-dummy.m in Sources */,
 				2DD20D241EA51068156148FBBBEF26EA /* String+Extension.swift in Sources */,
 				47FD160F23167640A1459DFB53619B2D /* UIKitCommon.swift in Sources */,
+				04BA860A29A84B59001D14E4 /* UIColor+Extension.swift in Sources */,
 				04BA860629A72F8D001D14E4 /* NSObject+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
