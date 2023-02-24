@@ -1,4 +1,5 @@
 import UIKit
+import MBProgressHUD
 
 public class UIKitCommon {
     
@@ -159,5 +160,79 @@ public class UIKitCommon {
         }
         
         return rootViewController
+    }
+}
+
+/// HUD
+extension UIKitCommon {
+    
+    public typealias Completion = (() -> Void)?
+    
+    public static func showText(_ text: String, completion: Completion = nil) {
+        DispatchQueue.main.async {
+            self.showText(text, time: 2, completion: completion)
+        }
+    }
+    
+    public static func showText(_ text: String, time: Double, completion: Completion = nil) {
+       
+        DispatchQueue.main.async {
+            guard let containerView = keyWindow() else {
+                return
+            }
+            
+            let hud = MBProgressHUD.showAdded(to: containerView, animated: true)
+            hud.label.text = text
+            hud.label.numberOfLines = 0
+            hud.mode = .text
+            hud.contentColor = .white
+            hud.bezelView.style = .solidColor
+            hud.bezelView.layer.cornerRadius = 20
+            hud.bezelView.layer.masksToBounds = true
+            hud.bezelView.backgroundColor = UIColor.hexColor("333333")
+            hud.removeFromSuperViewOnHide = true
+            hud.show(animated: true)
+            DispatchQueue.main.asyncAfter(deadline: .now() + time) {
+                hud.hide(animated: true)
+                completion?()
+            }
+        }
+    }
+    
+    public static func hide() {
+        
+        DispatchQueue.main.async {
+            guard let containerView = keyWindow() else {
+                return
+            }
+            
+            MBProgressHUD.hide(for: containerView, animated: true)
+        }
+    }
+    
+    public static func showLoading(text: String? = nil, inWindow: Bool = false) {
+        DispatchQueue.main.async {
+            guard let container = self.keyWindow() else {
+                return
+            }
+            
+            if let _ = MBProgressHUD.forView(container) {
+                return
+            }
+            
+            let indicator = UIActivityIndicatorView.appearance(whenContainedInInstancesOf: [MBProgressHUD.self])
+            indicator.color = .white
+            
+            let hud = MBProgressHUD.showAdded(to: container, animated: true)
+            hud.mode = MBProgressHUDMode.indeterminate
+            hud.animationType = .zoom
+            hud.removeFromSuperViewOnHide = true
+            hud.bezelView.layer.cornerRadius = 14
+            hud.bezelView.style = .solidColor
+            hud.bezelView.color = UIColor(red: 0, green: 0, blue: 0, alpha: 0.8)
+            hud.detailsLabel.text = text
+            hud.detailsLabel.numberOfLines = 0
+            hud.detailsLabel.textColor = .white
+        }
     }
 }

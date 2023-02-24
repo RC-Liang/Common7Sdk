@@ -1,16 +1,23 @@
 PODS:
-  - Common7Sdk (0.1.0)
+  - Common7Sdk (0.1.0):
+    - MBProgressHUD
+  - MBProgressHUD (1.2.0)
 
 DEPENDENCIES:
   - Common7Sdk (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - MBProgressHUD
 
 EXTERNAL SOURCES:
   Common7Sdk:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Common7Sdk: 97b149cc6fc80988857ab1d42d854cb694cde409
+  Common7Sdk: a6c0452888161ebb3484c1bd65dcaad6423272f4
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
 
-PODFILE CHECKSUM: 585454298285ff1c783d98b85571d21cfd31090c
+PODFILE CHECKSUM: 8c568b50722f7fb48a68b21ce6d386caea65e9ad
 
 COCOAPODS: 1.11.2
