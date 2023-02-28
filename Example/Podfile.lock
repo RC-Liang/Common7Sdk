@@ -1,18 +1,10 @@
 PODS:
   - Common7Sdk (0.1.0):
-    - Common7Sdk/Alert (= 0.1.0)
-    - Common7Sdk/Extension (= 0.1.0)
-    - Kingfisher
-    - MBProgressHUD
-  - Common7Sdk/Alert (0.1.0):
     - Kingfisher
     - MBProgressHUD
     - RxCocoa
     - RxSwift
     - SnapKit
-  - Common7Sdk/Extension (0.1.0):
-    - Kingfisher
-    - MBProgressHUD
   - Kingfisher (7.4.0)
   - MBProgressHUD (1.2.0)
   - RxCocoa (6.5.0):
@@ -40,7 +32,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Common7Sdk: 3fa85c45df11938a2bc0591d089d9c5f93873152
+  Common7Sdk: ab415b99406fd683179866a1f2d1d79f93cf3552
   Kingfisher: 596b207973051aae5e4c54a1c1cb39837ea10d36
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
