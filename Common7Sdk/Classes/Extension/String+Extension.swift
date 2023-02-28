@@ -37,4 +37,15 @@ public extension String {
         }
         return string
     }
+    
+    func size(constrained width: CGFloat, font: UIFont) -> CGSize {
+        let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
+        let boundingBox = self.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
+        
+        return boundingBox.size
+    }
+    
+    func height(constrained width: CGFloat, font: UIFont) -> CGFloat {
+        return size(constrained: width, font: font).height
+    }
 }

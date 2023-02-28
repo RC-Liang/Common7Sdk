@@ -19,11 +19,40 @@
     "ios": "12.0"
   },
   "swift_versions": "5.0",
-  "source_files": "Common7Sdk/Classes/**/*",
+  "source_files": "Common7Sdk/Classes/*",
+  "resource_bundles": {
+    "Common": [
+      "Common7Sdk/Assets/**/*.{png,jpeg,jpg,storyboard,xib,xcassets,ttf,plist}"
+    ]
+  },
   "dependencies": {
     "MBProgressHUD": [
 
+    ],
+    "Kingfisher": [
+
     ]
   },
+  "subspecs": [
+    {
+      "name": "Alert",
+      "source_files": "Common7Sdk/Classes/AlertView/**/*",
+      "dependencies": {
+        "SnapKit": [
+
+        ],
+        "RxSwift": [
+
+        ],
+        "RxCocoa": [
+
+        ]
+      }
+    },
+    {
+      "name": "Extension",
+      "source_files": "Common7Sdk/Classes/Extension/**/*"
+    }
+  ],
   "swift_version": "5.0"
 }

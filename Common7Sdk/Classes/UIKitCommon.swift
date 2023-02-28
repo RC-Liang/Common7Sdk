@@ -3,6 +3,14 @@ import MBProgressHUD
 
 public class UIKitCommon {
     
+    
+    public static let screenWidth = UIScreen.main.bounds.width
+    public static let screenHeight = UIScreen.main.bounds.height
+    
+    private static let window = UIApplication.shared.windows.first
+    public static let safeBottom: CGFloat = window?.safeAreaInsets.bottom ?? 0
+    public static let safeTop: CGFloat = window?.safeAreaInsets.top ?? 0
+    
     /// 获取  keyWindow
     
     public static func keyWindow() -> UIWindow? {
@@ -161,6 +169,21 @@ public class UIKitCommon {
         
         return rootViewController
     }
+    
+    public static func cornerRadius(view: UIView, radius: CGFloat, corner: UIRectCorner? = nil) {
+        
+        guard radius > 0 else {
+            return
+        }
+        
+        let rectCorner = (corner == nil ? [.topLeft, .topRight, .bottomLeft, .bottomRight] : corner)!
+        let path = UIBezierPath(roundedRect: view.bounds, byRoundingCorners: rectCorner, cornerRadii: CGSize(width: radius, height: radius))
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.cgPath
+        shapeLayer.frame = view.bounds
+        view.layer.mask = shapeLayer
+    }
 }
 
 /// HUD
@@ -234,5 +257,57 @@ extension UIKitCommon {
             hud.detailsLabel.numberOfLines = 0
             hud.detailsLabel.textColor = .white
         }
+    }
+}
+
+
+// MARK: - Color
+public extension UIKitCommon {
+    /// 主题色
+    static let ThemeColor = UIKitCommon.configure?.themeColor
+    /// 主题文本颜色
+    
+    /// 主题背景色
+}
+
+public struct UIKitConfigure {
+    
+    /// 主题色
+    public var themeColor: UIColor = UIColor.hexColor("333333")
+    
+    /// 用户默认头像
+    public var userDefault: UIImage?
+    
+    public init(themeColor: UIColor, userDefault: UIImage?) {
+        self.themeColor = themeColor
+        self.userDefault = userDefault
+    }
+}
+
+
+
+public extension UIKitCommon {
+    static var configure: UIKitConfigure?
+    
+    static func configUI(configure: UIKitConfigure) {
+        UIKitCommon.configure = configure
+    }
+}
+
+// MARK: - Bundle
+
+enum UIKitCommonBundle: String {
+    case common = "Common"
+    case components = "Components"
+}
+
+extension UIKitCommon {
+    static func resourceBundle(type: UIKitCommonBundle) -> Bundle? {
+        guard let url = Bundle(for: UIKitCommon.self).url(forResource: type.rawValue, withExtension: "bundle"),
+              let bundle = Bundle(url: url)
+        else {
+            return nil
+        }
+        return bundle
     }
 }
