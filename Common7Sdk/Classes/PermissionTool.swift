@@ -5,7 +5,7 @@
 //
 //  camera    -> Privacy - Camera Usage Description
 //
-//  麦克风     -> Privacy - Microphone Usage Description
+//  microphone     -> Privacy - Microphone Usage Description
 //
 //  location  -> Privacy - Location Always Usage Description,
 //               Privacy - Location Always and When In Use Usage Description,
@@ -41,7 +41,7 @@ public struct PermissionTool {
         case .camera:
             self.cameraPermission(success)
         case .audio:
-            self.audioPermission(success)
+            self.microphonePermission(success)
 //        case .location:
 //            self.locationPermission(success)
             
@@ -137,7 +137,7 @@ public struct PermissionTool {
     }
     
     // MARK: 麦克风权限
-    static fileprivate func audioPermission(_ success: @escaping () -> ()) {
+    static fileprivate func microphonePermission(_ success: @escaping () -> ()) {
         
         let authStatus = AVCaptureDevice.authorizationStatus(for: .audio)
         switch authStatus {
@@ -237,16 +237,16 @@ public struct PermissionTool {
         
         case .unknown:
             return "unknown"
-//        case .contacts:
-//            return "contacts"
+            // case .contacts:
+            // return "contacts"
         case .photo:
             return "photo"
         case .camera:
             return "camera"
         case .audio:
             return "audio"
-//        case .location:
-//            return "location"
+            // case .location:
+            // return "location"
         }
     }
 }
