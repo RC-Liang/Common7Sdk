@@ -48,4 +48,31 @@ public extension String {
     func height(constrained width: CGFloat, font: UIFont) -> CGFloat {
         return size(constrained: width, font: font).height
     }
+    
+    /// 中文转拼音
+    func transformChinese() -> String {
+        let str = NSMutableString(string: self) as CFMutableString
+        if CFStringTransform(str, nil, kCFStringTransformMandarinLatin, false){
+            if CFStringTransform(str, nil, kCFStringTransformStripDiacritics, false){
+                return str as String
+            }
+        }
+        print("transform faild !!")
+        return ""
+    }
+    
+    /// 首字母
+    func firstLetter(uppercased: Bool = true) -> String {
+        let letter = transformChinese().replacingOccurrences(of: " ", with: "")
+        
+        guard letter.count > 0, let first = letter.first else {
+            return "#"
+        }
+        
+        if uppercased {
+            return first.uppercased()
+        } else {
+            return first.uppercased()
+        }
+    }
 }

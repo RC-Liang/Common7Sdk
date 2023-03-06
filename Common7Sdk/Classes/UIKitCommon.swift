@@ -11,6 +11,18 @@ public class UIKitCommon {
     public static let safeBottom: CGFloat = window?.safeAreaInsets.bottom ?? 0
     public static let safeTop: CGFloat = window?.safeAreaInsets.top ?? 0
     
+    /// 获取状态栏高度
+    public static func statusBarHeight() -> CGFloat {
+        var height: CGFloat
+        if #available(iOS 13.0,*) {
+            let windowScene = UIApplication.shared.windows.first?.windowScene
+            height = windowScene?.statusBarManager?.statusBarFrame.size.height ?? 0
+        } else {
+            height = UIApplication.shared.statusBarFrame.height
+        }
+        return height
+    }
+    
     /// 获取  keyWindow
     
     public static func keyWindow() -> UIWindow? {
