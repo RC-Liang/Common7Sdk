@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SimUserAgreementView" customModule="SimUIKit">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SimUserAgreementView" customModule="Common7Sdk">
             <connections>
                 <outlet property="agreeBtn" destination="p8Z-aF-oWk" id="qX9-QC-fLg"/>
                 <outlet property="contentView" destination="iN0-l3-epB" id="6eT-6e-Fvu"/>
