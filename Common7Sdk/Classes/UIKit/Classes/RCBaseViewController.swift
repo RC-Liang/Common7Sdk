@@ -6,7 +6,7 @@ open class RCBaseViewController: UIViewController {
 
     override open func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = .white
         guard navigationController?.viewControllers.count != 1 else {
             return
         }
