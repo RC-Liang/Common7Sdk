@@ -3,7 +3,7 @@ import RxSwift
 import RxCocoa
 
 @IBDesignable
-public class SimMobileView: UIView {
+public class MobileView: UIView {
     
     /// 背景颜色
     @IBInspectable public var bgColor: UIColor = .white {
