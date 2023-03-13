@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SimSmsCodeView" customModule="Common7Sdk">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="UHc-8R-4sr"/>
+                <outlet property="lineView" destination="oFO-jw-FHF" id="m8H-UB-Nxm"/>
                 <outlet property="sendCodeBtn" destination="vrF-Pi-tEf" id="ODf-TC-Ot4"/>
                 <outlet property="smsCodeTextField" destination="2Cd-rg-NNi" id="5cw-La-odC"/>
             </connections>
@@ -20,8 +21,8 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="52"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Cd-rg-NNi" customClass="SimLimitTextField" customModule="SimUIKit">
-                    <rect key="frame" x="16" y="0.0" width="268" height="52"/>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Cd-rg-NNi" customClass="LimitTextField" customModule="Common7Sdk">
+                    <rect key="frame" x="0.0" y="0.0" width="284" height="52"/>
                     <color key="textColor" red="0.12941176469999999" green="0.14117647059999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
@@ -42,16 +43,26 @@
                         <color key="titleColor" red="0.062745098039215685" green="0.31764705882352939" blue="0.3411764705882353" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oFO-jw-FHF">
+                    <rect key="frame" x="0.0" y="51" width="414" height="1"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="ekL-jL-HXc"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="2Cd-rg-NNi" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="5cR-o0-S0V"/>
+                <constraint firstItem="2Cd-rg-NNi" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="5cR-o0-S0V"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="2Cd-rg-NNi" secondAttribute="bottom" id="82G-fN-H3o"/>
+                <constraint firstAttribute="bottom" secondItem="oFO-jw-FHF" secondAttribute="bottom" id="82c-Uu-c2n"/>
                 <constraint firstItem="vrF-Pi-tEf" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CxM-MS-elf"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="vrF-Pi-tEf" secondAttribute="trailing" id="Tze-od-bX8"/>
+                <constraint firstItem="oFO-jw-FHF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="U4i-wC-tbq"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="vrF-Pi-tEf" secondAttribute="bottom" id="YGR-fC-I9i"/>
                 <constraint firstItem="vrF-Pi-tEf" firstAttribute="leading" secondItem="2Cd-rg-NNi" secondAttribute="trailing" constant="10" id="cr1-Aq-BRu"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="oFO-jw-FHF" secondAttribute="trailing" id="hFX-fp-pYV"/>
                 <constraint firstItem="2Cd-rg-NNi" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ytL-af-3y0"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

@@ -9,6 +9,8 @@ public class SimPasswordView: UIView {
     //显示隐藏密码按钮
     @IBOutlet private weak var showPsdBtn: UIButton!
     
+    @IBOutlet weak var lineView: UIView!
+    
     private let disposeBag = DisposeBag()
     
     @IBInspectable public var placeholder: String = "输入密码" {
@@ -53,6 +55,7 @@ public class SimPasswordView: UIView {
         let nib = UINib(nibName: Self.identifier, bundle: UIKitCommon.resourceBundle(type: .components))
         self.contentView = nib.instantiate(withOwner: self, options: nil).first as? UIView
         self.contentView.frame = bounds
+        lineView.backgroundColor = UIColor.hexColor("EBEDF0")
         self.addSubview(self.contentView)
         
         //隐藏显示密码

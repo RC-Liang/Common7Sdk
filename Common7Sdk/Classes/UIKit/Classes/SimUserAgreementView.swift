@@ -62,11 +62,11 @@ public class SimUserAgreementView: UIView {
     
     
     @IBAction func privateAgreementAction(_ sender: UIButton) {
-        SimWebViewController(title: "隐私协议", path: privatePolicy).show()
+        RCWebViewController(title: "隐私协议", path: privatePolicy).show()
     }
     
     @IBAction func userAgreementAction(_ sender: UIButton) {
-        SimWebViewController(title: "用户协议", path: userPolicy).show()
+        RCWebViewController(title: "用户协议", path: userPolicy).show()
     }
     
 }

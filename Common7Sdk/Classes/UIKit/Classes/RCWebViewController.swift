@@ -3,7 +3,7 @@ import SnapKit
 import UIKit
 import WebKit
 
-public class SimWebViewController: RCBaseViewController {
+public class RCWebViewController: RCBaseViewController {
    
     public func show() {
         let currentVC = UIKitCommon.currentViewController()
@@ -14,6 +14,7 @@ public class SimWebViewController: RCBaseViewController {
         } else {
             let navigationController = UINavigationController(rootViewController: self)
             navigationController.modalPresentationStyle = .fullScreen
+            self.showBackButton = true
             currentVC?.present(navigationController, animated: true)
         }
     }
@@ -39,6 +40,8 @@ public class SimWebViewController: RCBaseViewController {
 
         title = titleText
         view.backgroundColor = .white
+        
+        configFunc()
 
         var loadUrl: URL?
 
@@ -65,8 +68,6 @@ public class SimWebViewController: RCBaseViewController {
                 self.dismiss(animated: true)
             }
         }
-
-        configFunc()
     }
 
     fileprivate lazy var configuration: WKWebViewConfiguration = {
@@ -170,7 +171,7 @@ public class SimWebViewController: RCBaseViewController {
     }
 }
 
-extension SimWebViewController: WKNavigationDelegate {
+extension RCWebViewController: WKNavigationDelegate {
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         activityIndicator.stopAnimating()
     }

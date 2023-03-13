@@ -19,6 +19,8 @@ import RxCocoa
     //发送按钮
     @IBOutlet public weak var sendCodeBtn: UIButton!
     
+    @IBOutlet weak var lineView: UIView!
+    
     ///输入框订阅
     public var smsCodeTextObservable: Observable<String> {
         return self.smsCodeTextField.rx.text.orEmpty.asObservable()
@@ -68,9 +70,12 @@ import RxCocoa
         let nib = UINib(nibName: Self.identifier, bundle: UIKitCommon.resourceBundle(type: .components))
         self.contentView = nib.instantiate(withOwner: self, options: nil).first as? UIView
         self.contentView.frame = bounds
+        lineView.backgroundColor = UIColor.hexColor("EBEDF0")
         self.addSubview(self.contentView)
         
-        sendCodeBtn.setTitleColor(UIKitCommon.ThemeColor, for: .normal)
+        if UIKitCommon.ThemeColor != nil {
+            sendCodeBtn.setTitleColor(UIKitCommon.ThemeColor, for: .normal)
+        }
     }
     
     var timer: DisposeBag?

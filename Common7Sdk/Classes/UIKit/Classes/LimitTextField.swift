@@ -1,6 +1,6 @@
 import UIKit
 
-public class SimLimitTextField: UITextField {
+public class LimitTextField: UITextField {
 
     //限制字符
     @IBInspectable public var limitCount: Int = 100 {
