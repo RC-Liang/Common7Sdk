@@ -25,17 +25,14 @@ public extension IdentifierProtocol where Self: NSObject {
 
 extension NSObject: IdentifierProtocol {}
 
-
-/// 根据拼音排序协议 
+/// 根据拼音排序协议
 public protocol SortTitleProtocol {
     var pin_yin: String { get }
 }
 
-
 private var kPerformOnceKey: Void?
 
 public extension NSObject {
-    
     public var performOnceFlag: Bool {
         get {
             return objc_getAssociatedObject(self, &kPerformOnceKey) as? Bool ?? false
@@ -54,7 +51,6 @@ public extension NSObject {
     }
 
     public func performOnceBlock(aselector: () -> Void) {
-       
         if performOnceFlag {
             return
         }

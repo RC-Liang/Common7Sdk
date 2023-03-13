@@ -1,6 +1,17 @@
-import UIKit
-import RxSwift
 import RxRelay
+import RxSwift
+import UIKit
+
+public extension ObservableType {
+    func subscribeNext(_ onNext: @escaping (Element) -> Void) -> Disposable {
+        let observer = subscribe { e in
+            if case let .next(value) = e {
+                onNext(value)
+            }
+        }
+        return observer
+    }
+}
 
 public extension BehaviorRelay where Element: RangeReplaceableCollection, Element.Element: Equatable {
     /// 添加元素
@@ -8,18 +19,18 @@ public extension BehaviorRelay where Element: RangeReplaceableCollection, Elemen
     func append(_ element: Element.Element) {
         accept(value + [element])
     }
-    
+
     /// 更新元素
     /// - Parameter element: 元素
     func update(_ element: Element.Element) {
         var newValue = value
-        if let idx = newValue.firstIndex(where: {return $0 == element}) {
+        if let idx = newValue.firstIndex(where: { $0 == element }) {
             newValue.remove(at: idx)
             newValue.insert(element, at: idx)
         }
         accept(newValue)
     }
-    
+
     /// 插入元素到指定位置
     /// - Parameters:
     ///   - element: 元素
@@ -29,7 +40,7 @@ public extension BehaviorRelay where Element: RangeReplaceableCollection, Elemen
         newValue.insert(element, at: index)
         accept(newValue)
     }
-    
+
     /// 移除指定元素
     /// - Parameter element: 元素
     func remove(_ element: Element.Element) {
@@ -37,7 +48,7 @@ public extension BehaviorRelay where Element: RangeReplaceableCollection, Elemen
             remove(at: index)
         }
     }
-    
+
     /// 移除指定位置元素
     /// - Parameter index: 位置
     func remove(at index: Element.Index) {

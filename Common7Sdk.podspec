@@ -15,7 +15,31 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '12.0'
   s.swift_version = '5.0'
 
-  s.source_files = 'Common7Sdk/Classes/**/*'
+#  s.source_files = 'Common7Sdk/Classes/**/*'
+  
+  s.subspec 'Common' do |cn|
+      cn.source_files = 'Common7Sdk/Classes/Common/Classes/**/*'
+      cn.resource_bundles = {
+          'Common' => ['Common7Sdk/Classes/Common/Assets/**/*.{png,jpeg,jpg,storyboard,xib,xcassets,ttf,plist}']
+      }
+      
+      cn.dependency 'SnapKit'
+      cn.dependency 'RxSwift'
+      cn.dependency 'RxCocoa'
+      cn.dependency 'MBProgressHUD'
+      cn.dependency 'Kingfisher'
+  end
+  
+  s.subspec 'UIKit' do |cs|
+      cs.source_files = 'Common7Sdk/Classes/UIKit/Classes/**/*'
+      cs.resource_bundles = {
+          'Components' => ['Common7Sdk/Classes/UIKit/Assets/**/*.{png,jpeg,jpg,storyboard,xib,xcassets,ttf,plist}']
+      }
+      cs.dependency 'RxSwift'
+      cs.dependency 'RxCocoa'
+      cs.dependency 'SnapKit'
+      cs.dependency 'Common7Sdk/Common'
+  end
   
 #  s.subspec 'Alert' do |alert|
 #      alert.source_files = 'Common7Sdk/Classes/AlertView/**/*'
@@ -28,14 +52,14 @@ TODO: Add long description of the pod here.
 #      extension.source_files = 'Common7Sdk/Classes/Extension/**/*'
 #  end
   
-  s.resource_bundles = {
-      'Common' => ['Common7Sdk/Assets/**/*.{png,jpeg,jpg,storyboard,xib,xcassets,ttf,plist}']
-  }
-  
-  s.dependency 'SnapKit'
-  s.dependency 'RxSwift'
-  s.dependency 'RxCocoa'
-  s.dependency 'MBProgressHUD'
-  s.dependency 'Kingfisher'
+#  s.resource_bundles = {
+#      'Common' => ['Common7Sdk/Assets/**/*.{png,jpeg,jpg,storyboard,xib,xcassets,ttf,plist}']
+#  }
+#
+#  s.dependency 'SnapKit'
+#  s.dependency 'RxSwift'
+#  s.dependency 'RxCocoa'
+#  s.dependency 'MBProgressHUD'
+#  s.dependency 'Kingfisher'
   
 end
