@@ -11,8 +11,7 @@ public extension UIImage {
     }
 
     // 根据颜色创建图片
-    static func create(color: UIColor) -> UIImage? {
-        let rect = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0)
+    static func create(color: UIColor, rect: CGRect = CGRect(x: 0.0, y: 0.0, width: 1.0, height: 1.0)) -> UIImage? {
 
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()
@@ -24,3 +23,4 @@ public extension UIImage {
         return colorImage
     }
 }
+
