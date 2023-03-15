@@ -1,65 +1,63 @@
-import UIKit
 import RxSwift
+import UIKit
 
 public class SimPasswordView: UIView {
-    //容器
+    // 容器
     @IBOutlet private var contentView: UIView!
-    //密码输入框
-    @IBOutlet private weak var passwordTextField: UITextField!
-    //显示隐藏密码按钮
-    @IBOutlet private weak var showPsdBtn: UIButton!
-    
-    @IBOutlet weak var lineView: UIView!
-    
+    // 密码输入框
+    @IBOutlet private var passwordTextField: UITextField!
+    // 显示隐藏密码按钮
+    @IBOutlet private var showPsdBtn: UIButton!
+
+    @IBOutlet var lineView: UIView!
+
     private let disposeBag = DisposeBag()
-    
+
     @IBInspectable public var placeholder: String = "输入密码" {
         didSet {
-            self.passwordTextField.placeholder = placeholder
+            passwordTextField.placeholder = placeholder
         }
     }
-    
+
     /// 密码订阅
     public var passwordTextObservable: Observable<String> {
-        return self.passwordTextField.rx.text.orEmpty.asObservable()
+        return passwordTextField.rx.text.orEmpty.asObservable()
     }
-    
+
     /// 密码
     public var password: String {
-        self.passwordTextField.text ?? ""
+        passwordTextField.text ?? ""
     }
-    
+
     /// 清理密码
     public func clearPassword() {
-        self.passwordTextField.text = ""
+        passwordTextField.text = ""
     }
-    
+
     /// 是否是空
     public var isEmpty: Bool {
         password.isEmpty
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.loadViewFromNib()
+        loadViewFromNib()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.loadViewFromNib()
+        loadViewFromNib()
     }
-    
-    
+
     private final func loadViewFromNib() {
-        
         let nib = UINib(nibName: Self.identifier, bundle: UIKitCommon.resourceBundle(type: .components))
-        self.contentView = nib.instantiate(withOwner: self, options: nil).first as? UIView
-        self.contentView.frame = bounds
+        contentView = nib.instantiate(withOwner: self, options: nil).first as? UIView
+        contentView.frame = bounds
         lineView.backgroundColor = UIColor.hexColor("EBEDF0")
-        self.addSubview(self.contentView)
-        
-        //隐藏显示密码
-        showPsdBtn.rx.tap.subscribe { [weak self]event in
+        addSubview(contentView)
+
+        // 隐藏显示密码
+        showPsdBtn.rx.tap.subscribe { [weak self] event in
             guard let self = self else {
                 return
             }
@@ -68,9 +66,9 @@ public class SimPasswordView: UIView {
                 self.showPsdBtn.isSelected = !self.showPsdBtn.isSelected
             }
         }.disposed(by: disposeBag)
-        
+
         #if DEBUG
-        self.passwordTextField.text = "a123456"
+            passwordTextField.text = "a123456"
         #endif
     }
 }

@@ -2,7 +2,6 @@ import RxSwift
 import UIKit
 
 public class SimPayVerifyPsdViewController: UIViewController {
-   
     public typealias ToVerify = (_ psd: String) -> Void
 
     /// 输入密码
@@ -84,7 +83,7 @@ public class SimPayVerifyPsdViewController: UIViewController {
     }
 
     func showPassword(isPsd: Bool) {
-        // TODO
+        // TODO:
 //        if isPsd {
 //            payTypeBtn.setTitle(SimIDHelper.IDPayTitle() + "支付", for: .normal)
 //            psdView.autoShowKeyboard = true
@@ -108,7 +107,7 @@ public class SimPayVerifyPsdViewController: UIViewController {
         }
 
         closeBtn.rx.tap.subscribe { [weak self] event in
-            
+
             if case .next() = event {
                 guard let self = self else {
                     return
