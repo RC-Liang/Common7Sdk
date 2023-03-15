@@ -3,7 +3,6 @@ import MBProgressHUD
 
 public class UIKitCommon {
     
-    
     public static let screenWidth = UIScreen.main.bounds.width
     public static let screenHeight = UIScreen.main.bounds.height
     
