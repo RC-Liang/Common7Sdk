@@ -28,7 +28,7 @@ open class RCBaseViewController: UIViewController {
 
     // 设置状态栏颜色 --- 默认黑色
 
-    fileprivate var statusBarStyle: UIStatusBarStyle = .darkContent
+    fileprivate var statusBarStyle: UIStatusBarStyle = .default
 
     open func setPreferredStatusBarStyle(_ style: UIStatusBarStyle) {
         statusBarStyle = style
@@ -68,7 +68,9 @@ open class RCBaseViewController: UIViewController {
 
     fileprivate lazy var backButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        if #available(iOS 13.0, *) {
+            button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        }
         button.tintColor = UIColor.black
         button.frame = CGRect(x: 0, y: 0, width: 30, height: 44)
         button.contentHorizontalAlignment = .left

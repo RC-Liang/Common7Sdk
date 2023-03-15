@@ -12,7 +12,7 @@ TODO: Add long description of the pod here.
   s.author           = { 'gogopaly@163.com' => '116050908+GigoGogo790@users.noreply.github.com' }
   s.source           = { :git => 'https://github.com/RC-Liang/Common7Sdk.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '12.0'
+  s.ios.deployment_target = '13.0'
   s.swift_version = '5.0'
 
 #  s.source_files = 'Common7Sdk/Classes/**/*'

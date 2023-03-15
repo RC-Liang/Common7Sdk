@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import Common7Sdk
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let al = PccAlertView(title: "1", message: "2")
+        al.config(action: "abc", style: .cancel)
+        al.show()
     }
 
     override func didReceiveMemoryWarning() {

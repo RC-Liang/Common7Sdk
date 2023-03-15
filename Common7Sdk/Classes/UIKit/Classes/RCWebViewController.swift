@@ -98,7 +98,15 @@ public class RCWebViewController: RCBaseViewController {
     }()
 
     fileprivate lazy var activityIndicator: UIActivityIndicatorView = {
-        let activity = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        
+        let activity = UIActivityIndicatorView()
+        
+        if #available(iOS 13.0, *) {
+            activity.style = .medium
+        } else {
+            activity.style = .gray
+        }
+        
         view.insertSubview(activity, aboveSubview: webView)
 
         activity.snp.makeConstraints { make in
