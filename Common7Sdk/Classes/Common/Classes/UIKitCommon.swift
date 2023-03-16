@@ -315,13 +315,18 @@ enum UIKitCommonBundle: String {
 extension UIKitCommon {
     
     static func resourceBundle(type: UIKitCommonBundle) -> Bundle? {
+        return UIKitCommon.resourceBundle(type.rawValue)
+    }
     
-        guard let url = Bundle(for: UIKitCommon.self).url(forResource: type.rawValue, withExtension: "bundle"),
+    static func resourceBundle(_ bundleString: String) -> Bundle? {
+        
+        guard let url = Bundle(for: UIKitCommon.self).url(forResource: bundleString, withExtension: "bundle"),
               let bundle = Bundle(url: url)
         else {
             return nil
         }
         
         return bundle
+        
     }
 }

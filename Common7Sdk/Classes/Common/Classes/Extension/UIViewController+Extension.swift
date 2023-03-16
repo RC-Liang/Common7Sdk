@@ -133,7 +133,7 @@ public extension UIViewController {
         navigationController?.navigationBar.standardAppearance = appearance
     }
 
-    // 导航栏白色
+    // 设置导航栏
     func setNavigationBarColor(_ color: UIColor) {
         if navigationController?.navigationBar.standardAppearance.backgroundColor == color {
             return
