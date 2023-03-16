@@ -2,6 +2,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+public enum Status {
+    case userName
+    case mobile
+}
+
 @IBDesignable
 public class MobileView: UIView {
     
@@ -24,6 +29,18 @@ public class MobileView: UIView {
     @IBOutlet weak var lineView: UIView!
     
     private let disposeBag = DisposeBag()
+    
+    public var isShowLine: Bool = true {
+        willSet {
+            lineView.isHidden = !newValue
+        }
+    }
+    
+    public var placeholder: String = "" {
+        willSet {
+            mobileTextField.placeholder = newValue
+        }
+    }
     
     //手机号
     public var mobileObservable: Observable<String> {

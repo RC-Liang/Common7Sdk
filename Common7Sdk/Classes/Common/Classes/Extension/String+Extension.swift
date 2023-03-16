@@ -1,4 +1,5 @@
 import Foundation
+import CryptoKit
 
 public extension String {
     /// 从某个位置开始截取：
@@ -74,5 +75,15 @@ public extension String {
         } else {
             return first.lowercased()
         }
+    }
+    
+    /// md5加密
+    func md5() -> String {
+        guard let data = self.data(using: .utf8) else {
+            return ""
+        }
+        return Insecure.MD5.hash(data: data).map {
+            String(format: "%02hhx", $0)
+        }.joined()
     }
 }
