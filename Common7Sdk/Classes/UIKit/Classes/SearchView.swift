@@ -12,7 +12,7 @@ public enum SimSearchStatus: Equatable {
     case endEditing
 }
 
-public class SimSearchView: UIView {
+public class SearchView: UIView {
     @IBInspectable var isMobileOn: Bool = false {
         didSet {
             mobileTextField.isHidden = !isMobileOn
@@ -37,7 +37,7 @@ public class SimSearchView: UIView {
     // 普通搜索框
     @IBOutlet var searchTextField: UITextField!
     // 手机号搜索
-    @IBOutlet var mobileTextField: SimMobileTextField!
+    @IBOutlet var mobileTextField: MobileTextField!
 
     // edge 边缘
     @IBOutlet var topEdge: NSLayoutConstraint!

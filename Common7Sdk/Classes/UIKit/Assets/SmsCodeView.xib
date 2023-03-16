@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SimSmsCodeView" customModule="Common7Sdk">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SmsCodeView" customModule="Common7Sdk">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="UHc-8R-4sr"/>
                 <outlet property="lineView" destination="oFO-jw-FHF" id="m8H-UB-Nxm"/>
@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Cd-rg-NNi" customClass="LimitTextField" customModule="Common7Sdk">
-                    <rect key="frame" x="0.0" y="0.0" width="284" height="52"/>
+                    <rect key="frame" x="0.0" y="0.0" width="284" height="18"/>
                     <color key="textColor" red="0.12941176469999999" green="0.14117647059999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
@@ -33,7 +33,7 @@
                     </userDefinedRuntimeAttributes>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vrF-Pi-tEf">
-                    <rect key="frame" x="294" y="0.0" width="120" height="52"/>
+                    <rect key="frame" x="294" y="0.0" width="120" height="18"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="120" id="CZ8-Bb-vCu"/>
                     </constraints>
@@ -66,12 +66,12 @@
                 <constraint firstItem="2Cd-rg-NNi" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ytL-af-3y0"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                    <real key="value" value="9"/>
-                </userDefinedRuntimeAttribute>
-            </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="137.68115942028987" y="295.3125"/>
         </view>
     </objects>
+    <designables>
+        <designable name="2Cd-rg-NNi">
+            <size key="intrinsicContentSize" width="46" height="19.666666666666668"/>
+        </designable>
+    </designables>
 </document>

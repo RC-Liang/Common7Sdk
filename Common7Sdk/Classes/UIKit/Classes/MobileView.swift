@@ -22,7 +22,7 @@ public class MobileView: UIView {
     //country
     @IBOutlet weak var countryBtn: UIButton!
     //手机号
-    @IBOutlet public weak var mobileTextField: SimMobileTextField!
+    @IBOutlet public weak var mobileTextField: MobileTextField!
     
     @IBOutlet weak var rowView: UIView!
     

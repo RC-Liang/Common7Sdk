@@ -1,7 +1,7 @@
 import RxSwift
 import UIKit
 
-public class SimPasswordView: UIView {
+public class PasswordView: UIView {
     // 容器
     @IBOutlet private var contentView: UIView!
     // 密码输入框

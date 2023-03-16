@@ -1,7 +1,7 @@
 import RxCocoa
 import UIKit
 
-public class SimUserAgreementView: UIView {
+public class UserAgreementView: UIView {
     public func configURL(privatePolicy: String?, userPolicy: String?) {
         self.privatePolicy = privatePolicy
         self.userPolicy = userPolicy

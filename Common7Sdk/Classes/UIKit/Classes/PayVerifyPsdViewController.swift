@@ -1,7 +1,7 @@
 import RxSwift
 import UIKit
 
-public class SimPayVerifyPsdViewController: UIViewController {
+public class PayVerifyPsdViewController: UIViewController {
     public typealias ToVerify = (_ psd: String) -> Void
 
     /// 输入密码
@@ -9,7 +9,7 @@ public class SimPayVerifyPsdViewController: UIViewController {
     ///   - desc: 描述
     ///   - amount: 数量(单位分)
     public class func show(desc: String, amount: Int?, toVerify: ToVerify?) {
-        let verifyVC = SimPayVerifyPsdViewController(nibName: identifier, bundle: UIKitCommon.resourceBundle(type: .components))
+        let verifyVC = PayVerifyPsdViewController(nibName: identifier, bundle: UIKitCommon.resourceBundle(type: .components))
         verifyVC.modalPresentationStyle = .overFullScreen
         verifyVC.loadViewIfNeeded()
         verifyVC.toVerify = toVerify
@@ -32,7 +32,7 @@ public class SimPayVerifyPsdViewController: UIViewController {
 
     @IBOutlet var amountLabel: UILabel!
 
-    @IBOutlet var psdView: SimPayPasswordView!
+    @IBOutlet var psdView: PayPasswordView!
 
     @IBOutlet var closeBtn: UIButton!
 

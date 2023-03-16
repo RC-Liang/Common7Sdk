@@ -1,7 +1,7 @@
 import UIKit
 import RxSwift
 
-class SimPayPasswordView: UIView {
+class PayPasswordView: UIView {
     
     @IBOutlet var contentView: UIView!
 
@@ -78,7 +78,7 @@ class SimPayPasswordView: UIView {
     }
 }
 
-extension SimPayPasswordView: UITextFieldDelegate {
+extension PayPasswordView: UITextFieldDelegate {
    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         

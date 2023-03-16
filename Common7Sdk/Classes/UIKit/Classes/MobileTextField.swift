@@ -1,13 +1,13 @@
 import Foundation
 
-public class SimMobileTextField: UITextField {
+public class MobileTextField: UITextField {
     public override func awakeFromNib() {
         super.awakeFromNib()
         self.delegate = self
     }
 }
 
-extension SimMobileTextField: UITextFieldDelegate {
+extension MobileTextField: UITextFieldDelegate {
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if string == " " {
             return false

@@ -2,7 +2,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-@IBDesignable public class SimSmsCodeView: UIView {
+@IBDesignable public class SmsCodeView: UIView {
     
     /// 背景颜色
     @IBInspectable public var bgColor: UIColor = .white {

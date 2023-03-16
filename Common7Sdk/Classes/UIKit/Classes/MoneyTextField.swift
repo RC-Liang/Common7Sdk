@@ -75,7 +75,7 @@ public class SimMoneyDelegateObject: NSObject, UITextFieldDelegate {
     }
 }
 
-public class SimMoneyTextField: UITextField {
+public class MoneyTextField: UITextField {
     public var maxNumber: Float! {
         didSet {
             obj.maxNumber = maxNumber
