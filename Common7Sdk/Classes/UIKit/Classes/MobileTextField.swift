@@ -5,10 +5,17 @@ public class MobileTextField: UITextField {
         super.awakeFromNib()
         self.delegate = self
     }
+    
+    public var isShowPhone: Bool = true
 }
 
 extension MobileTextField: UITextFieldDelegate {
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if !isShowPhone {
+            return true
+        }
+        
         if string == " " {
             return false
         }

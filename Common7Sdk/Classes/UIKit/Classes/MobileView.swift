@@ -24,11 +24,38 @@ public class MobileView: UIView {
     //手机号
     @IBOutlet public weak var mobileTextField: MobileTextField!
     
+    @IBOutlet weak var mobileTextFieldWidth: NSLayoutConstraint!
     @IBOutlet weak var rowView: UIView!
     
     @IBOutlet weak var lineView: UIView!
     
     private let disposeBag = DisposeBag()
+    
+    public var status: Status = .mobile {
+        willSet {
+            
+            switch newValue {
+            case .mobile:
+                countryBtn.isHidden = false
+                rowView.isHidden = false
+                mobileTextFieldWidth.constant = 56
+                if placeholder.count <= 0 {
+                    mobileTextField.placeholder = "请输入手机号"
+                }
+                mobileTextField.keyboardType = .numberPad
+                mobileTextField.isShowPhone = true
+            case .userName:
+                countryBtn.isHidden = true
+                rowView.isHidden = true
+                mobileTextFieldWidth.constant = 0
+                if placeholder.count <= 0 {
+                    mobileTextField.placeholder = "请输入用户名"
+                }
+                mobileTextField.keyboardType = .default
+                mobileTextField.isShowPhone = false
+            }
+        }
+    }
     
     public var isShowLine: Bool = true {
         willSet {

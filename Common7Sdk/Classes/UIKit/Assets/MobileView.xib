@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,6 +14,7 @@
                 <outlet property="countryBtn" destination="xLc-FN-fie" id="AT1-MF-5MH"/>
                 <outlet property="lineView" destination="jWz-XR-FkB" id="s2f-ex-pyK"/>
                 <outlet property="mobileTextField" destination="YCS-8e-8HR" id="oME-lw-Fsf"/>
+                <outlet property="mobileTextFieldWidth" destination="j65-nM-bUS" id="IIH-1U-l4L"/>
                 <outlet property="rowView" destination="wjW-4y-cJ8" id="WkM-ul-k8e"/>
             </connections>
         </placeholder>
@@ -21,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLc-FN-fie">
-                    <rect key="frame" x="0.0" y="0.0" width="30" height="52"/>
+                    <rect key="frame" x="0.0" y="0.0" width="30" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title="+86">
@@ -29,7 +32,7 @@
                     </state>
                 </button>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="手机号码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="YCS-8e-8HR" customClass="MobileTextField" customModule="Common7Sdk">
-                    <rect key="frame" x="56" y="0.0" width="358" height="52"/>
+                    <rect key="frame" x="56" y="0.0" width="358" height="18"/>
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
@@ -61,13 +64,18 @@
                 <constraint firstItem="wjW-4y-cJ8" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="SZp-Um-UpN"/>
                 <constraint firstAttribute="trailing" secondItem="YCS-8e-8HR" secondAttribute="trailing" id="Tg5-49-Nil"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="YCS-8e-8HR" secondAttribute="bottom" id="cG2-36-E0R"/>
+                <constraint firstItem="YCS-8e-8HR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="56" id="j65-nM-bUS"/>
                 <constraint firstAttribute="bottom" secondItem="jWz-XR-FkB" secondAttribute="bottom" id="jRV-yv-XZp"/>
                 <constraint firstItem="xLc-FN-fie" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="vle-fP-AND"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="jWz-XR-FkB" secondAttribute="trailing" id="wVt-op-UUu"/>
-                <constraint firstItem="YCS-8e-8HR" firstAttribute="leading" secondItem="wjW-4y-cJ8" secondAttribute="trailing" constant="15" id="zyD-gN-aWW"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="202.89855072463769" y="340.84821428571428"/>
         </view>
     </objects>
+    <designables>
+        <designable name="YCS-8e-8HR">
+            <size key="intrinsicContentSize" width="65.333333333333329" height="21"/>
+        </designable>
+    </designables>
 </document>
