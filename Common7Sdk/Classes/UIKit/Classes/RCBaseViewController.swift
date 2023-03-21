@@ -1,4 +1,5 @@
 import Foundation
+import RxSwift
 
 open class RCBaseViewController: UIViewController {
     
@@ -45,23 +46,6 @@ open class RCBaseViewController: UIViewController {
         backButton.setImage(image, for: .normal)
     }
 
-    // 返回事件
-    @objc fileprivate func goToBack(_ sender: UIButton) {
-        DispatchQueue.main.async {
-            guard let backAction = self.backAction else {
-                if self.navigationController?.viewControllers.count == 1 || self.navigationController == nil {
-                    self.dismiss(animated: true, completion: nil)
-                } else {
-                    self.navigationController?.popViewController(animated: true)
-                }
-
-                return
-            }
-
-            backAction()
-        }
-    }
-
     override open var preferredStatusBarStyle: UIStatusBarStyle {
         return statusBarStyle
     }
@@ -74,7 +58,28 @@ open class RCBaseViewController: UIViewController {
         button.tintColor = UIColor.black
         button.frame = CGRect(x: 0, y: 0, width: 30, height: 44)
         button.contentHorizontalAlignment = .left
-        button.addTarget(self, action: #selector(goToBack(_:)), for: .touchUpInside)
+        
+        _ = button.rx.tap.subscribe(onNext: { [weak self] _ in
+            
+            guard let self = self else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                guard let backAction = self.backAction else {
+                    if self.navigationController?.viewControllers.count == 1 || self.navigationController == nil {
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+
+                    return
+                }
+
+                backAction()
+            }
+            
+        })
         return button
     }()
 }

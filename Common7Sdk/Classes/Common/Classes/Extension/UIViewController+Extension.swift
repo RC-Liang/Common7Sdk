@@ -3,8 +3,10 @@ import Foundation
 public extension UIViewController {
     
     func pushViewController(controller: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
+        
+        controller.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(controller, animated: animated)
-
+        
         guard animated, let coordinator = transitionCoordinator else {
             DispatchQueue.main.async { completion?() }
             return

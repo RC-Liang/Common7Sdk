@@ -1,9 +1,11 @@
 
 import UIKit
+import RxSwift
 
 extension UIView {
+   
     // 获取view所在的 视图控制器
-    var viewController: UIViewController? {
+    public var viewController: UIViewController? {
         var nextResponder = next
         while nextResponder != nil {
             if nextResponder is UIViewController {
@@ -15,7 +17,7 @@ extension UIView {
     }
 
     // 获取view所在的 导航控制器
-    var navController: UINavigationController? {
+    public var navController: UINavigationController? {
         var nextResponder = next
         while nextResponder != nil {
             if nextResponder is UINavigationController {
@@ -27,7 +29,7 @@ extension UIView {
     }
 
     // 获取view所在的 标签控制器
-    var tabBarController: UITabBarController? {
+    public var tabBarController: UITabBarController? {
         var nextResponder = next
         while nextResponder != nil {
             if nextResponder is UITabBarController {
@@ -36,6 +38,31 @@ extension UIView {
             nextResponder = nextResponder?.next
         }
         return nil
+    }
+    
+    // 圆角
+    public func cornerRadius(_ radius: CGFloat, corner: UIRectCorner? = nil) {
+        
+        guard radius > 0 else {
+            return
+        }
+        
+        let rectCorner = (corner == nil ? [.topLeft, .topRight, .bottomLeft, .bottomRight] : corner)!
+        let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: rectCorner, cornerRadii: CGSize(width: radius, height: radius))
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.cgPath
+        shapeLayer.frame = self.bounds
+        self.layer.mask = shapeLayer
+    }
+    
+    /// 添加点击事件
+    public func addTapAction(action: @escaping () -> Void) {
+        let tap = UITapGestureRecognizer()
+        self.isUserInteractionEnabled = true
+        self.addGestureRecognizer(tap)
+        _ = tap.rx.event.subscribe(onNext: { _ in
+            action()
+        })
     }
 }
 
