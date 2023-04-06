@@ -212,10 +212,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = CZMJL5AKNG;
 						LastSwiftMigration = 0900;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = CZMJL5AKNG;
 						LastSwiftMigration = "";
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -270,7 +272,6 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Common7Sdk_Example/Pods-Common7Sdk_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Common7Sdk/Common7Sdk.framework",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
@@ -280,7 +281,6 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Common7Sdk.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
@@ -498,6 +498,7 @@
 			baseConfigurationReference = 52032C1EDFCDBD3C8890C402 /* Pods-Common7Sdk_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = CZMJL5AKNG;
 				INFOPLIST_FILE = Common7Sdk/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -514,6 +515,7 @@
 			baseConfigurationReference = BA6D4B1DC42E8834ACB9DE9F /* Pods-Common7Sdk_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = CZMJL5AKNG;
 				INFOPLIST_FILE = Common7Sdk/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -529,6 +531,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 868673F992249349FBA58378 /* Pods-Common7Sdk_Tests.debug.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = CZMJL5AKNG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -551,6 +554,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ED6F194B06B26BC11F22B3BA /* Pods-Common7Sdk_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = CZMJL5AKNG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",

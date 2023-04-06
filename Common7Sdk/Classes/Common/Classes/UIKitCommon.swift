@@ -5,7 +5,7 @@ public class UIKitCommon {
     
     public static let screenWidth = UIScreen.main.bounds.width
     public static let screenHeight = UIScreen.main.bounds.height
-    
+
     private static let window = UIApplication.shared.windows.first
     public static let safeBottom: CGFloat = window?.safeAreaInsets.bottom ?? 0
     public static let safeTop: CGFloat = window?.safeAreaInsets.top ?? 0
@@ -13,7 +13,7 @@ public class UIKitCommon {
     /// 获取状态栏高度
     public static func statusBarHeight() -> CGFloat {
         var height: CGFloat
-        if #available(iOS 13.0,*) {
+        if #available(iOS 13.0, *) {
             let windowScene = UIApplication.shared.windows.first?.windowScene
             height = windowScene?.statusBarManager?.statusBarFrame.size.height ?? 0
         } else {
@@ -25,13 +25,13 @@ public class UIKitCommon {
     /// 获取  keyWindow
     
     public static func keyWindow() -> UIWindow? {
-       
+        
         let windows = UIApplication.shared.windows
-        
+
         if windows.count == 1 { return windows.first }
-        
+
         for window in UIApplication.shared.windows {
-            if window.windowLevel == UIWindow.Level.normal { 
+            if window.windowLevel == UIWindow.Level.normal {
                 return window
             }
         }
@@ -327,6 +327,5 @@ extension UIKitCommon {
         }
         
         return bundle
-        
     }
 }
