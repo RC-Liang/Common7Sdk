@@ -169,7 +169,7 @@ public extension UIViewController {
                     navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton())
                 }
             } else {
-                navigationItem.leftBarButtonItem = nil
+                navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIView())
             }
         }
     }

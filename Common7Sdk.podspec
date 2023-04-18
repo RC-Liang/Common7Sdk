@@ -15,7 +15,7 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '13.0'
   s.swift_version = '5.0'
 
-#  s.source_files = 'Common7Sdk/Classes/**/*'
+  # s.source_files = 'Common7Sdk/Classes/**/*'
   
   s.subspec 'Common' do |cn|
       cn.source_files = 'Common7Sdk/Classes/Common/Classes/**/*'

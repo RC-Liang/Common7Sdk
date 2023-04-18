@@ -17,7 +17,7 @@ extension UIView {
     }
 
     // 获取view所在的 导航控制器
-    public var navController: UINavigationController? {
+    public var navigationController: UINavigationController? {
         var nextResponder = next
         while nextResponder != nil {
             if nextResponder is UINavigationController {

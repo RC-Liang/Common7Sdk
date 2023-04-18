@@ -1,8 +1,8 @@
 import UIKit
 
-class NavigationController: UINavigationController {
+public class NavigationController: UINavigationController {
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 
         let appearance = UINavigationBarAppearance()
