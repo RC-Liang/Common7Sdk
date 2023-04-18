@@ -10,7 +10,7 @@ public class RCWebViewController: RCBaseViewController {
         if currentVC?.navigationController != nil {
             isPush = true
             hidesBottomBarWhenPushed = true
-            currentVC?.pushViewController(controller: self)
+            currentVC?.pushViewController(self)
         } else {
             let navigationController = UINavigationController(rootViewController: self)
             navigationController.modalPresentationStyle = .fullScreen
@@ -61,7 +61,7 @@ public class RCWebViewController: RCBaseViewController {
         activityIndicator.startAnimating()
 
         if !isPush {
-            addImageNaviButton(image: UIImage(systemName: "xmark"), isLeft: true) { [weak self] in
+            addBarButtonItem(image: UIImage(systemName: "xmark"), isLeft: true) { [weak self] in
                 guard let self = self else {
                     return
                 }

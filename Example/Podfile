@@ -1,10 +1,12 @@
-use_frameworks!
-
 platform :ios, '13.0'
 
-inhibit_all_warnings!
+source 'https://github.com/CocoaPods/Specs.git'
 
 target 'Common7Sdk_Example' do
+  
+  inhibit_all_warnings!
+  use_frameworks!
+  
   pod 'Common7Sdk', :path => '../'
 
   target 'Common7Sdk_Tests' do

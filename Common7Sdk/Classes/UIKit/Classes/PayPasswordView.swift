@@ -29,7 +29,7 @@ class PayPasswordView: UIView {
 
     override init(frame: CGRect = .zero) {
         let width = CGFloat(50 * 6 + 40)
-        let rect = CGRect(x: (UIScreen.main.bounds.width - width) / 2, y: 0, width: width, height: 59)
+        let rect = CGRect(x: (UIKitCommon.screenWidth - width) / 2, y: 0, width: width, height: 59)
         super.init(frame: rect)
         self.loadViewFromNib()
     }
@@ -57,24 +57,6 @@ class PayPasswordView: UIView {
     
     func configTF() {
         inputTF.delegate = self
-        // TODO: 原因不清楚
-//        inputTF.rx.text.orEmpty.subscribeNext { [weak self] text in
-//            guard let self = self else {
-//                return
-//            }
-//
-//            for (idx, label) in self.codes.enumerated() {
-//                if idx < text.count {
-//                    label.text = "●"
-//                }else {
-//                    label.text = ""
-//                }
-//            }
-//
-//            if text.count >= 6 {
-//                self.endInput?(text.subString(to: 6))
-//            }
-//        }.disposed(by: disposeBag)
     }
 }
 

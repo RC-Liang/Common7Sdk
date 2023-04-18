@@ -3,10 +3,11 @@ import MBProgressHUD
 
 public class UIKitCommon {
     
-    public static let screenWidth = UIScreen.main.bounds.width
-    public static let screenHeight = UIScreen.main.bounds.height
-
     private static let window = UIApplication.shared.windows.first
+    
+    public static let screenWidth: CGFloat = window?.windowScene?.screen.bounds.width ?? 0.0
+    public static let screenHeight: CGFloat = window?.windowScene?.screen.bounds.height ?? 0.0
+    public static let statusHeight: CGFloat = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0.0
     public static let safeBottom: CGFloat = window?.safeAreaInsets.bottom ?? 0
     public static let safeTop: CGFloat = window?.safeAreaInsets.top ?? 0
     

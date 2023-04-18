@@ -16,17 +16,6 @@ open class RCBaseViewController: UIViewController {
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
     }
 
-    public var showBackButton = true {
-      
-        didSet {
-            if showBackButton {
-                navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
-            } else {
-                navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIView())
-            }
-        }
-    }
-
     // 设置状态栏颜色 --- 默认黑色
 
     fileprivate var statusBarStyle: UIStatusBarStyle = .default
@@ -67,6 +56,7 @@ open class RCBaseViewController: UIViewController {
             
             DispatchQueue.main.async {
                 guard let backAction = self.backAction else {
+                    
                     if self.navigationController?.viewControllers.count == 1 || self.navigationController == nil {
                         self.dismiss(animated: true, completion: nil)
                     } else {

@@ -1,12 +1,42 @@
 import Foundation
+import RxSwift
+import RxCocoa
 
 public extension UIViewController {
     
-    func pushViewController(controller: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
+    func back(block: (() -> Void)? = nil) {
+        
+        if let buttonItem  = navigationItem.leftBarButtonItem?.customView as? UIButton {
+            
+            // 取消上次的监听
+            disposable?.dispose()
+            // 重新添加新监听
+            _ = buttonItem.rx.tap.subscribe(onNext: { [weak self] _ in
+                block?()
+                self?.popViewController()
+            })
+        } else {
+            block?()
+            self.popViewController()
+        }
+    }
+    
+    func pushViewController(_ controller: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
+        
+        if navigationController?.viewControllers.count ?? 0 > 0 {
+            let buttonItem = backButton()
+            controller.disposable = buttonItem.rx.tap.subscribe(onNext: { _ in
+                controller.popViewController()
+                controller.disposable?.dispose()
+            })
+            controller.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: buttonItem)
+        } else {
+            controller.navigationItem.leftBarButtonItem = nil
+        }
         
         controller.hidesBottomBarWhenPushed = true
         navigationController?.pushViewController(controller, animated: animated)
-        
+
         guard animated, let coordinator = transitionCoordinator else {
             DispatchQueue.main.async { completion?() }
             return
@@ -33,6 +63,7 @@ public extension UIViewController {
             controllers.remove(targetVc)
         }
         navigationController?.setViewControllers(controllers, animated: false)
+        // self.navigationController?.viewControllers = controllers
     }
 
     /// 移除指定controller
@@ -49,20 +80,31 @@ public extension UIViewController {
         navigationController?.setViewControllers(controllers, animated: false)
     }
 
+    fileprivate func backButton() -> UIButton {
+        // MARK: 返回按钮
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        button.tintColor = UIColor.black
+        button.frame = CGRect(x: 0, y: 0, width: 30, height: 44)
+        button.contentHorizontalAlignment = .left
+        
+        return button
+    }
+    
     /// 添加图片按钮
     /// - Parameters:
     ///   - image: 图片
     ///   - isLeft: 位置
     ///   - tapAction: 点击事件
-    func addImageNaviButton(image: UIImage?, isLeft: Bool = false, _ tapAction: @escaping () -> Void) {
-        let naviBtn = UIButton(type: .custom)
-        naviBtn.tintColor = .hexColor("333333")
-        naviBtn.setImage(image, for: .normal)
-        _ = naviBtn.rx.controlEvent(.touchUpInside).subscribeNext { _ in
+    func addBarButtonItem(image: UIImage?, isLeft: Bool = false, _ tapAction: @escaping () -> Void) {
+       
+        let button = UIButton(type: .custom)
+        button.setImage(image, for: .normal)
+        _ = button.rx.controlEvent(.touchUpInside).subscribe(onNext: { _ in
             tapAction()
-        }
+        })
 
-        let barItem = UIBarButtonItem(customView: naviBtn)
+        let barItem = UIBarButtonItem(customView: button)
 
         if isLeft {
             var leftBarItems = navigationItem.leftBarButtonItems ?? []
@@ -80,23 +122,59 @@ public extension UIViewController {
     ///   - text: 文字
     ///   - isLeft: 位置
     ///   - tapAction: 点击事件
-    func addTextNaviButton(text: String, isLeft: Bool = false, _ tapAction: @escaping () -> Void) {
-        let naviBtn = UIButton(type: .custom)
-        naviBtn.setTitle(text, for: .normal)
-        naviBtn.setTitleColor(.hexColor("212424"), for: .normal)
-        naviBtn.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
-        _ = naviBtn.rx.controlEvent(.touchUpInside).subscribeNext { _ in
+    func addBarButtonItem(text: String, isLeft: Bool = false, _ tapAction: @escaping () -> Void) {
+        let button = UIButton(type: .custom)
+        button.setTitle(text, for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+        _ = button.rx.controlEvent(.touchUpInside).subscribe(onNext: { _ in
             tapAction()
-        }
+        })
 
-        let barItem = UIBarButtonItem(customView: naviBtn)
+        let barItem = UIBarButtonItem(customView: button)
+        
         if isLeft {
-            navigationItem.leftBarButtonItem = barItem
+            var leftBarItems = navigationItem.leftBarButtonItems ?? []
+            leftBarItems.append(barItem)
+            navigationItem.leftBarButtonItems = leftBarItems
         } else {
-            navigationItem.rightBarButtonItem = barItem
+            var rightBarItems = navigationItem.rightBarButtonItems ?? []
+            rightBarItems.append(barItem)
+            navigationItem.rightBarButtonItems = rightBarItems
         }
     }
 }
+
+public extension UIViewController {
+    
+    private struct AssociatedKeys {
+        static var disposable = "Disposable_dis"
+        static var showBackButton = "showBackButton_btn"
+    }
+    
+    private var disposable: Disposable? {
+        get { return objc_getAssociatedObject(self, &AssociatedKeys.disposable) as? Disposable }
+        set { objc_setAssociatedObject(self, &AssociatedKeys.disposable, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+    }
+    
+    public var showBackButton: Bool {
+        get { return objc_getAssociatedObject(self, &AssociatedKeys.showBackButton) as? Bool ?? true }
+        set {
+            objc_setAssociatedObject(self, &AssociatedKeys.showBackButton, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            
+            if showBackButton {
+                if let buttonItem  = navigationItem.leftBarButtonItem?.customView as? UIButton {
+                    navigationItem.leftBarButtonItem = UIBarButtonItem(customView: buttonItem)
+                } else {
+                    navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton())
+                }
+            } else {
+                navigationItem.leftBarButtonItem = nil
+            }
+        }
+    }
+}
+
 
 // MARK: - 导航栏颜色相关
 

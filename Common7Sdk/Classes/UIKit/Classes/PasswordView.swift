@@ -50,6 +50,7 @@ public class PasswordView: UIView {
     }
 
     private final func loadViewFromNib() {
+       
         let nib = UINib(nibName: Self.identifier, bundle: UIKitCommon.resourceBundle(type: .components))
         contentView = nib.instantiate(withOwner: self, options: nil).first as? UIView
         contentView.frame = bounds

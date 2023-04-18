@@ -60,7 +60,7 @@ public class SimMoneyDelegateObject: NSObject, UITextFieldDelegate {
             
             
             
-            let pointRange = ((textField.text ?? "") as NSString).range(of: ".")//(textField.text ?? "" as NSString).range(of: ".") // "".nsRange(from: (textField.text?.range(of: "."))!)
+            let pointRange = ((textField.text ?? "") as NSString).range(of: ".")
             // 小数点后只允许输入两位
             if range.location - pointRange.location > 2 {
                 return false
