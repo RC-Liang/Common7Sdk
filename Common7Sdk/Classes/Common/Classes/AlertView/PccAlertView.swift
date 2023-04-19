@@ -6,6 +6,7 @@
 import RxCocoa
 import RxSwift
 import UIKit
+import SnapKit
 
 public extension PccAlertView {
     enum actionStyle {
@@ -91,16 +92,13 @@ public class PccAlertView: AlertAnimateView {
         let color = style == .default ? UIKitCommon.ThemeColor : UIColor.hexColor("#333333", alpha: 0.8)
         button.setTitleColor(color, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        button.rx.tap.subscribe { [weak self] event in
-            if case .next() = event {
-                self?.hide()
-
-                guard let handler = handler else {
-                    return
-                }
-                handler()
+        button.rx.tap.subscribe(onNext: { [weak self] _ in
+            self?.hide()
+            guard let handler = handler else {
+                return
             }
-        }.disposed(by: disposeBag)
+            handler()
+        }).disposed(by: disposeBag)
 
         contentView.addSubview(button)
         buttonsArray.append(button)

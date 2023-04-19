@@ -179,8 +179,10 @@ public extension UIViewController {
 // MARK: - 导航栏颜色相关
 
 public extension UIViewController {
+    
     // 重置导航栏颜色
     func resetNavigationBarColor() {
+        
         if navigationController?.navigationBar.standardAppearance.backgroundColor == .clear {
             return
         }
@@ -198,6 +200,7 @@ public extension UIViewController {
 
     // 导航栏白色
     func whiteNavigationBar() {
+        
         if navigationController?.navigationBar.standardAppearance.backgroundColor == UIColor.hexColor("#FFFFFF", alpha: 0.8) {
             return
         }
@@ -215,6 +218,7 @@ public extension UIViewController {
 
     // 设置导航栏
     func setNavigationBarColor(_ color: UIColor) {
+        
         if navigationController?.navigationBar.standardAppearance.backgroundColor == color {
             return
         }
@@ -235,6 +239,7 @@ public extension UIViewController {
     }
 
     func setNavigationTitleColor(_ color: UIColor) {
+       
         let appearance = UINavigationBarAppearance()
         appearance.configureWithTransparentBackground()
 

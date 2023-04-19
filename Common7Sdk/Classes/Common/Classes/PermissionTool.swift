@@ -19,11 +19,11 @@ import Photos
 import Foundation
 
 public enum PermissionType {
-    case unknown   // 未知
+    case unknown    // 未知
     // case contacts  // contacts
-    case photo     // photo
-    case camera    // camera
-    case audio     // 麦克风
+    case photo      // photo
+    case camera     // camera
+    case microphone // 麦克风
     // case location  // location
 }
 
@@ -34,16 +34,16 @@ public struct PermissionTool {
         switch type {
         case .unknown:
             break
-//        case .contacts:
-//            self.contactPermission(success)
+            // case .contacts:
+            //     self.contactPermission(success)
         case .photo:
             self.photoPermission(success)
         case .camera:
             self.cameraPermission(success)
-        case .audio:
+        case .microphone:
             self.microphonePermission(success)
-//        case .location:
-//            self.locationPermission(success)
+            // case .location:
+            //     self.locationPermission(success)
             
         }
     }
@@ -148,13 +148,13 @@ public struct PermissionTool {
                     if granted {
                         success()
                     } else {
-                        self.configError(type: .audio)
+                        self.configError(type: .microphone)
                     }
                 }
             }
             
         case .restricted, .denied:
-            self.configError(type: .audio)
+            self.configError(type: .microphone)
         case .authorized:
             success()
         @unknown default:
@@ -199,19 +199,32 @@ public struct PermissionTool {
 //    }
     
     // MARK: 无权限 弹窗提示
-    static fileprivate func configError(type: PermissionType) {
+    static fileprivate func configError(type: PermissionType, isChinese: Bool = true) {
         
-        let name = self.config(type: type)
+        let name = self.config(type: type, isChinese: isChinese)
+        
         // 无法访问\(name)权限
-        let title = name == "unknown" ? "Unknown" : "Cannot access \(name) permissions"
+        var title = ""
+        
+        if isChinese {
+            title = name == "未知权限" ? "未知权限" : "无法访问 \(name) 权限"
+        } else {
+            title = name == "unknown" ? "Unknown" : "Cannot access \(name) permissions"
+        }
+        
         // 可以到手机系统“设置-隐私-%@“中开启
-        let message = name == "unknown" ? "Unknown" : "It can be turned on in the phone system “Settings-Privacy-\(name.capitalized)“"
+        var message = ""
+        if isChinese {
+            message = name == "未知权限" ? "未知权限" : "可以到手机系统“设置-隐私-\(name.capitalized)“中开启"
+        } else {
+            message = name == "unknown" ? "Unknown" : "It can be turned on in the phone system “Settings-Privacy-\(name.capitalized)“"
+        }
         
         let alertController = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
-        let cancel = UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil)
+        let cancel = UIAlertAction.init(title: isChinese ? "取消" : "Cancel", style: .cancel, handler: nil)
         
-        if name != "unknown" {
-            let open = UIAlertAction.init(title: "Open", style: .default) { action in
+        if name != "unknown" && name != "未知权限" {
+            let open = UIAlertAction.init(title: isChinese ? "打开" : "Open", style: .default) { action in
                 
                 // UIApplicationOpenSettingsURLString
                 guard let url: URL = URL.init(string: UIApplication.openSettingsURLString),
@@ -231,22 +244,22 @@ public struct PermissionTool {
     
     
     // MARK: 获取提示权限的名字
-    static fileprivate func config(type: PermissionType) -> String {
+    static fileprivate func config(type: PermissionType, isChinese: Bool) -> String {
         
         switch type {
         
         case .unknown:
-            return "unknown"
+            return isChinese ? "未知权限" : "unknown"
             // case .contacts:
-            // return "contacts"
+            // return isChinese ? "联系人" : "contacts"
         case .photo:
-            return "photo"
+            return isChinese ? "相册" : "photo"
         case .camera:
-            return "camera"
-        case .audio:
-            return "audio"
+            return isChinese ? "照相机" : "camera"
+        case .microphone:
+            return isChinese ? "麦克风" : "audio"
             // case .location:
-            // return "location"
+            // return isChinese ? "位置" : "location"
         }
     }
 }

@@ -12,6 +12,7 @@ public class UIKitCommon {
     public static let safeTop: CGFloat = window?.safeAreaInsets.top ?? 0
     
     /// 获取状态栏高度
+    
     public static func statusBarHeight() -> CGFloat {
         var height: CGFloat
         if #available(iOS 13.0, *) {
