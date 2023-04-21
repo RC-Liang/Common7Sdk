@@ -18,4 +18,12 @@ public class NavigationController: UINavigationController {
         navigationBar.standardAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
     }
+    
+    public override var childForStatusBarStyle: UIViewController? {
+        return topViewController
+    }
+    
+    public override var childForStatusBarHidden: UIViewController? {
+        return topViewController
+    }
 }

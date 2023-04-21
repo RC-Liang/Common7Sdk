@@ -11,6 +11,12 @@ public class TabBarController: UITabBarController {
         tabBar.unselectedItemTintColor = .hexColor("#CCCCCC")
         tabBar.tintColor = .hexColor("212021")
         
+        // 针对iOS 15.0 以上, 设置tableview group 的 top padding
+        if #available(iOS 15.0, *) {
+            UITableView.appearance().fillerRowHeight = 0
+            UITableView.appearance().sectionHeaderTopPadding = 0
+        }
+        
         setTabBarBackgroundColor(UIKitCommon.navigationBarDefaultColor)
     }
 
