@@ -11,6 +11,9 @@ public class UIKitCommon {
     public static let safeBottom: CGFloat = window?.safeAreaInsets.bottom ?? 0
     public static let safeTop: CGFloat = window?.safeAreaInsets.top ?? 0
     
+    public static let navigationBarWhiteColor: UIColor = UIColor(white: 1, alpha: 0.8)
+    public static let navigationBarDefaultColor: UIColor = UIColor(white: 1, alpha: 0.8)
+    
     /// 获取状态栏高度
     
     public static func statusBarHeight() -> CGFloat {
@@ -291,18 +294,17 @@ public struct UIKitConfigure {
     /// 用户默认头像
     public var userDefault: UIImage?
     
-    public init(themeColor: UIColor, userDefault: UIImage?) {
-        self.themeColor = themeColor
+    public init(themeColor: UIColor? = nil, userDefault: UIImage? = nil) {
+        self.themeColor = themeColor ?? UIColor.hexColor("333333")
         self.userDefault = userDefault
     }
 }
 
-
-
 public extension UIKitCommon {
+    
     static var configure: UIKitConfigure?
     
-    static func configUI(configure: UIKitConfigure) {
+    static func config(_ configure: UIKitConfigure) {
         UIKitCommon.configure = configure
     }
 }

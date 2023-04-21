@@ -39,3 +39,9 @@ public extension UIColor {
         return UIColor(red: r, green: g, blue: b, alpha: alpha)
     }
 }
+
+extension UIColor: Equatable {
+    public static func == (lhs: UIColor, rhs: UIColor) -> Bool {
+        return true
+    }
+}

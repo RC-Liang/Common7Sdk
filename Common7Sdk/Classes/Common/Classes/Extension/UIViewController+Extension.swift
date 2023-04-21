@@ -182,69 +182,67 @@ public extension UIViewController {
     
     // 重置导航栏颜色
     func resetNavigationBarColor() {
-        
-        if navigationController?.navigationBar.standardAppearance.backgroundColor == .clear {
-            return
-        }
-
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = .clear
-        appearance.shadowColor = .clear
-        appearance.shadowImage = UIImage.create(color: .clear)
-        appearance.backgroundEffect = nil
-
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        setNavigationBarColor(UIKitCommon.navigationBarDefaultColor)
     }
 
     // 导航栏白色
     func whiteNavigationBar() {
-        
-        if navigationController?.navigationBar.standardAppearance.backgroundColor == UIColor.hexColor("#FFFFFF", alpha: 0.8) {
-            return
-        }
-
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = UIColor.hexColor("#FFFFFF", alpha: 0.8)
-        appearance.shadowColor = .clear
-        appearance.shadowImage = UIImage.create(color: .clear)
-        appearance.backgroundEffect = UIBlurEffect(style: .light)
-
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.standardAppearance = appearance
+        setNavigationBarColor(UIKitCommon.navigationBarWhiteColor)
     }
 
     // 设置导航栏
     func setNavigationBarColor(_ color: UIColor) {
         
-        if navigationController?.navigationBar.standardAppearance.backgroundColor == color {
-            return
+        var appearance = navigationController?.navigationBar.standardAppearance
+        if appearance == nil {
+            appearance = UINavigationBarAppearance()
+            appearance?.configureWithTransparentBackground()
+            appearance?.backgroundEffect = UIBlurEffect(style: .extraLight)
+            appearance?.shadowColor = .clear
+            appearance?.shadowImage = UIImage.create(color: .clear)
         }
-
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithTransparentBackground()
-        appearance.backgroundColor = color
-        appearance.shadowColor = .clear
-        appearance.shadowImage = UIImage.create(color: .clear)
-        if color == .clear {
-            appearance.backgroundEffect = nil
-        } else {
-            appearance.backgroundEffect = UIBlurEffect(style: .light)
+        if let appearance = appearance {
+            if appearance.backgroundColor == color {
+                return
+            }
+            if color == .clear {
+                appearance.backgroundEffect = nil
+            } else {
+                appearance.backgroundEffect = UIBlurEffect(style: .extraLight)
+            }
+            appearance.backgroundColor = color
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+            navigationController?.navigationBar.standardAppearance = appearance
         }
-
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.standardAppearance = appearance
     }
 
-    func setNavigationTitleColor(_ color: UIColor) {
-       
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithTransparentBackground()
-
-        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: color]
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.standardAppearance = appearance
+    func setNavigationTitleColor(_ color: UIColor? = nil, font: UIFont? = nil) {
+        // 文字大小都为空  直接返回
+        if color == nil && font == nil {
+            return
+        }
+        
+        var appearance = navigationController?.navigationBar.standardAppearance
+        if appearance == nil {
+            appearance = UINavigationBarAppearance()
+            appearance?.configureWithTransparentBackground()
+        }
+        
+        if let appearance = appearance {
+            
+            if let color = color, let font = font {
+                // 文字大小与颜色
+                let attributes = [NSAttributedString.Key.foregroundColor: color, NSAttributedString.Key.font: font]
+                appearance.titleTextAttributes = attributes
+            } else if let font = font {
+                // 文字大小
+                appearance.titleTextAttributes = [NSAttributedString.Key.font: font]
+            } else if let color = color {
+                // 文字颜色
+                appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: color]
+            }
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+            navigationController?.navigationBar.standardAppearance = appearance
+        }
     }
 }
