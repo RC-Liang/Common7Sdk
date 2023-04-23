@@ -35,15 +35,15 @@ public struct PermissionTool {
         case .unknown:
             break
             // case .contacts:
-            //     self.contactPermission(success)
+            //     contactPermission(success)
         case .photo:
-            self.photoPermission(success)
+            photoPermission(success)
         case .camera:
-            self.cameraPermission(success)
+            cameraPermission(success)
         case .microphone:
-            self.microphonePermission(success)
+            microphonePermission(success)
             // case .location:
-            //     self.locationPermission(success)
+            //     locationPermission(success)
             
         }
     }
@@ -85,7 +85,7 @@ public struct PermissionTool {
         if authStatus == .authorized {
             success()
         } else if authStatus == .restricted || authStatus == .denied {
-            self.configError(type: .photo)
+            configError(type: .photo)
         } else if #available(iOS 14, *), authStatus == .limited {
             success()
         } else if authStatus == .notDetermined {
@@ -109,7 +109,7 @@ public struct PermissionTool {
         
         // 模拟器没有摄像头
         guard !(TARGET_OS_IPHONE == 1 && TARGET_IPHONE_SIMULATOR == 1)  else {
-            self.configError(type: .unknown)
+            configError(type: .unknown)
             return
         }
         
@@ -128,7 +128,7 @@ public struct PermissionTool {
                 }
             }
         case .restricted, .denied:
-            self.configError(type: .camera)
+            configError(type: .camera)
         case .authorized:
             success()
         @unknown default:
@@ -154,7 +154,7 @@ public struct PermissionTool {
             }
             
         case .restricted, .denied:
-            self.configError(type: .microphone)
+            configError(type: .microphone)
         case .authorized:
             success()
         @unknown default:
@@ -201,7 +201,7 @@ public struct PermissionTool {
     // MARK: 无权限 弹窗提示
     static fileprivate func configError(type: PermissionType, isChinese: Bool = true) {
         
-        let name = self.config(type: type, isChinese: isChinese)
+        let name = config(type: type, isChinese: isChinese)
         
         // 无法访问\(name)权限
         var title = ""
