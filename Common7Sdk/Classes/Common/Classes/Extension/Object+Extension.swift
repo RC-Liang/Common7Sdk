@@ -33,7 +33,9 @@ public protocol SortTitleProtocol {
 private var kPerformOnceKey: Void?
 
 public extension NSObject {
+   
     public var performOnceFlag: Bool {
+        
         get {
             return objc_getAssociatedObject(self, &kPerformOnceKey) as? Bool ?? false
         }
@@ -43,6 +45,7 @@ public extension NSObject {
     }
 
     public func performOnce(aselector: Selector) {
+        
         if performOnceFlag {
             return
         }
@@ -51,6 +54,7 @@ public extension NSObject {
     }
 
     public func performOnceBlock(aselector: () -> Void) {
+       
         if performOnceFlag {
             return
         }

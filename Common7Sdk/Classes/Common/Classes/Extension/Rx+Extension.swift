@@ -3,6 +3,7 @@ import RxSwift
 import UIKit
 
 public extension ObservableType {
+    
     func subscribeNext(_ onNext: @escaping (Element) -> Void) -> Disposable {
         let observer = subscribe { e in
             if case let .next(value) = e {
@@ -14,6 +15,7 @@ public extension ObservableType {
 }
 
 public extension BehaviorRelay where Element: RangeReplaceableCollection, Element.Element: Equatable {
+  
     /// 添加元素
     /// - Parameter element: 元素
     func append(_ element: Element.Element) {

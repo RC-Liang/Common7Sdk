@@ -28,6 +28,7 @@ TODO: Add long description of the pod here.
       cn.dependency 'RxCocoa'
       cn.dependency 'MBProgressHUD'
       cn.dependency 'Kingfisher'
+      cn.dependency 'HandyJSON'
   end
   
   s.subspec 'UIKit' do |cs|

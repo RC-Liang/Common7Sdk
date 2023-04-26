@@ -13,4 +13,18 @@ public extension Array where Element: Equatable {
             remove(at: index)
         }
     }
+    
+    /// 获取数组中的元素，增加了数组越界的判断
+    func safeIndex(_ index: Int) -> Array.Iterator.Element? {
+        guard !isEmpty, count > abs(index) else {
+            return nil
+        }
+        
+        for item in self.enumerated() {
+            if item.offset == index {
+                return item.element
+            }
+        }
+        return nil
+    }
 }

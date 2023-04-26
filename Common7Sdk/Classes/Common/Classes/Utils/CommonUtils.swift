@@ -7,7 +7,7 @@ public enum RingType {
     case vibrate // 震动
 }
 
-public struct CommonTools {
+public struct CommonUtils {
 
     /// 震动反馈
     public static func impactFeedback() {

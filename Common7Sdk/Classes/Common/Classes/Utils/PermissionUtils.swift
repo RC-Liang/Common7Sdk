@@ -27,7 +27,7 @@ public enum PermissionType {
     // case location  // location
 }
 
-public struct PermissionTool {
+public struct PermissionUtils {
     
     static public func permission(type: PermissionType, success: @escaping () -> ()) {
         

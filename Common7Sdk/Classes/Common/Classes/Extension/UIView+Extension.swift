@@ -6,10 +6,12 @@ extension UIView {
    
     // 获取view所在的 视图控制器
     public var viewController: UIViewController? {
-        var nextResponder = next
+        
+        var nextResponder: UIResponder? = next
+        
         while nextResponder != nil {
-            if nextResponder is UIViewController {
-                return nextResponder as! UIViewController?
+            if let viewController = nextResponder as? UIViewController {
+                return viewController
             }
             nextResponder = nextResponder?.next
         }
@@ -18,10 +20,12 @@ extension UIView {
 
     // 获取view所在的 导航控制器
     public var navigationController: UINavigationController? {
-        var nextResponder = next
+        
+        var nextResponder: UIResponder? = next
+        
         while nextResponder != nil {
-            if nextResponder is UINavigationController {
-                return nextResponder as! UINavigationController?
+            if let navigationController = nextResponder as? UINavigationController {
+                return navigationController
             }
             nextResponder = nextResponder?.next
         }
@@ -30,10 +34,10 @@ extension UIView {
 
     // 获取view所在的 标签控制器
     public var tabBarController: UITabBarController? {
-        var nextResponder = next
+        var nextResponder: UIResponder? = next
         while nextResponder != nil {
-            if nextResponder is UITabBarController {
-                return nextResponder as! UITabBarController?
+            if let tabBarController = nextResponder as? UITabBarController {
+                return tabBarController
             }
             nextResponder = nextResponder?.next
         }
@@ -63,6 +67,19 @@ extension UIView {
         _ = tap.rx.event.subscribe(onNext: { _ in
             action()
         })
+    }
+    
+    /// 生成视图的截图
+    func generateImage() -> UIImage? {
+        
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0)
+        if let context = UIGraphicsGetCurrentContext() {
+            layer.render(in: context)
+        }
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
     }
 }
 
