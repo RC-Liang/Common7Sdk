@@ -2,7 +2,8 @@ import ImageIO
 import MobileCoreServices
 import UIKit
 
-class GIFImage {
+public class GifImage {
+   
     /// 内部读取图片帧队列
     fileprivate lazy var readFrameQueue: DispatchQueue = DispatchQueue(label: "image.gif.readFrameQueue", qos: .background)
     /// 图片资源数据
@@ -19,15 +20,23 @@ class GIFImage {
     var image: UIImage?
 
     /// 全局配置
-    struct GlobalSetting {
+    struct Options {
         /// 配置预加载帧的数量
         static var prefetchNumber: Int = 10
         static var minFrameDuration: TimeInterval = 0.01
     }
 
     /// 兼容 UIImage named 调用
-    convenience init?(named name: String!) {
-        guard let path = Bundle.main.path(forResource: name, ofType: ".gif") else { return nil }
+    convenience init?(named name: String?) {
+        guard let name = name else { return nil }
+        var path = name
+        if URL(string: name)?.pathExtension == "gif" {
+            path = URL(string: name)?.deletingPathExtension().absoluteString ?? ""
+        }
+        if path.isEmpty {
+            return nil
+        }
+        guard let path = Bundle.main.path(forResource: path, ofType: "gif") else { return nil }
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else { return nil }
         self.init(data: data)
     }
@@ -54,7 +63,7 @@ class GIFImage {
     init?(data: Data, scale: CGFloat) {
         guard let cgImageSource = CGImageSourceCreateWithData(data as CFData, nil) else { return }
         self.cgImageSource = cgImageSource
-        if GIFImage.isCGImageSourceContainAnimatedGIF(cgImageSource: cgImageSource) {
+        if GifImage.isCGImageSourceContainAnimatedGIF(cgImageSource: cgImageSource) {
             initGIFSource(cgImageSource: cgImageSource)
         } else {
             image = UIImage(data: data, scale: scale)
@@ -71,6 +80,7 @@ class GIFImage {
 
     /// 获取图片数据源的第 index 帧图片的动画时间
     fileprivate class func getCGImageSourceGifFrameDelay(imageSource: CGImageSource, index: Int) -> TimeInterval {
+       
         var delay = 0.0
         guard let imgProperties: NSDictionary = CGImageSourceCopyPropertiesAtIndex(imageSource, index, nil) else { return delay }
         // 获取该帧图片的属性字典
@@ -92,11 +102,11 @@ class GIFImage {
         frameTotalCount = numOfFrames
         for index in 0 ..< numOfFrames {
             // 获取每一帧的动画时长
-            let frameDuration = GIFImage.getCGImageSourceGifFrameDelay(imageSource: cgImageSource, index: index)
-            frameDurations[index] = max(GlobalSetting.minFrameDuration, frameDuration)
+            let frameDuration = GifImage.getCGImageSourceGifFrameDelay(imageSource: cgImageSource, index: index)
+            frameDurations[index] = max(Options.minFrameDuration, frameDuration)
             totalDuration += frameDuration
             // 一开始初始化预加载一定数量的图片，而不是全部图片
-            if index < GlobalSetting.prefetchNumber {
+            if index < Options.prefetchNumber {
                 if let cgimage = CGImageSourceCreateImageAtIndex(cgImageSource, index, nil) {
                     let image: UIImage = UIImage(cgImage: cgimage)
                     if index == 0 {
@@ -114,13 +124,13 @@ class GIFImage {
         // 取当前帧图片
         let currentImage = frameImages[index] ?? image
         // 如果总帧数大于预加载数，需要加载后面未加载的帧图片
-        if frameTotalCount > GlobalSetting.prefetchNumber {
+        if frameTotalCount > Options.prefetchNumber {
             // 清除当前帧图片缓存数据，空出内存
             if index != 0 {
                 frameImages[index] = nil
             }
             // 加载后面帧图片到内存
-            for i in 1 ... GlobalSetting.prefetchNumber {
+            for i in 1 ... Options.prefetchNumber {
                 let idx = (i + index) % frameTotalCount
                 if frameImages[idx] == nil {
                     // 默认加载第一张帧图片为占位，防止多次加载

@@ -1,7 +1,8 @@
 import QuartzCore
 import UIKit
 
-class BasicGIFImageView: UIImageView {
+public class GifImageView: UIImageView {
+    
     /// 后台下载图片队列
     fileprivate lazy var downloadImageQueue: DispatchQueue = DispatchQueue(label: "image.gif.downloadImageQueue", qos: .background)
     /// 累加器，用于计算一个定时循环中的可用动画时间
@@ -11,7 +12,7 @@ class BasicGIFImageView: UIImageView {
     /// 当前正在显示的图片
     fileprivate var currentFrame: UIImage?
     /// 动画图片存储属性
-    fileprivate var animatedImage: GIFImage?
+    fileprivate var animatedImage: GifImage?
     /// 定时器
     fileprivate var displayLink: CADisplayLink!
     /// 当前将要显示的 GIF 图片资源路径
@@ -39,7 +40,7 @@ class BasicGIFImageView: UIImageView {
     }
 
     /// 当设置该属性时，将不显示 GIF 动效
-    override var image: UIImage? {
+    public override var image: UIImage? {
         get {
             if let animatedImage = animatedImage {
                 return animatedImage.getFrame(index: 0)
@@ -57,7 +58,7 @@ class BasicGIFImageView: UIImageView {
     }
 
     /// 设置 GIF 图片
-    var gifImage: GIFImage? {
+    var gifImage: GifImage? {
         get {
             return self.animatedImage
         }
@@ -83,7 +84,7 @@ class BasicGIFImageView: UIImageView {
     }
 
     /// 当显示 GIF 时，不处理高亮状态
-    override var isHighlighted: Bool {
+    public override var isHighlighted: Bool {
         get {
             return super.isHighlighted
         }
@@ -95,7 +96,7 @@ class BasicGIFImageView: UIImageView {
     }
 
     /// 获取是否正在动画
-    override var isAnimating: Bool {
+    public override var isAnimating: Bool {
         if self.animatedImage != nil {
             return !self.displayLink.isPaused
         } else {
@@ -104,7 +105,7 @@ class BasicGIFImageView: UIImageView {
     }
 
     /// 开启定时器
-    override func startAnimating() {
+    public override func startAnimating() {
         if animatedImage != nil {
             displayLink.isPaused = false
         } else {
@@ -113,7 +114,7 @@ class BasicGIFImageView: UIImageView {
     }
 
     /// 暂停定时器
-    override func stopAnimating() {
+    public override func stopAnimating() {
         if animatedImage != nil {
             displayLink.isPaused = true
         } else {
@@ -122,7 +123,7 @@ class BasicGIFImageView: UIImageView {
     }
 
     /// 当前显示内容为 GIF 当前帧图片
-    override func display(_ layer: CALayer) {
+    public override func display(_ layer: CALayer) {
         if animatedImage != nil {
             if let frame = currentFrame {
                 layer.contents = frame.cgImage
@@ -132,7 +133,7 @@ class BasicGIFImageView: UIImageView {
 
     /// 初始化定时器
     fileprivate func setupDisplayLink() {
-        displayLink = CADisplayLink(target: self, selector: #selector(BasicGIFImageView.changeKeyFrame))
+        displayLink = CADisplayLink(target: self, selector: #selector(GifImageView.changeKeyFrame))
         displayLink.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
         displayLink.isPaused = true
     }
@@ -163,20 +164,20 @@ class BasicGIFImageView: UIImageView {
     }
 
     /// 显示本地 GIF 图片
-    func showLocalGIF(name: String?) {
+    public func showLocalGif(name: String?) {
         guard let name = name else { return }
-        gifImage = GIFImage(named: name)
+        gifImage = GifImage(named: name)
     }
 
     /// 根据 urlStr 显示网络 GIF 图片
-    func showNetworkGIF(urlStr: String?) {
+    public func showNetworkGif(_ urlStr: String?) {
         guard let urlStr = urlStr else { return }
         guard let url = URL(string: urlStr) else { return }
-        showNetworkGIF(url: url)
+        showNetworkGif(url: url)
     }
 
     /// 根据 url 显示网络 GIF 图片
-    func showNetworkGIF(url: URL) {
+    public func showNetworkGif(url: URL) {
         let fileName = url.absoluteString.md5()
         guard let directoryPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first else { return }
         let filePath = (directoryPath as NSString).appendingPathComponent("\(fileName).gif") as String
@@ -185,7 +186,7 @@ class BasicGIFImageView: UIImageView {
         // 后台下载网络图片或者加载本地缓存图片
         downloadImageQueue.async { [weak self] in
             if FileManager.default.fileExists(atPath: filePath) { // 本地缓存
-                let gifImage = GIFImage(contentsOf: fileUrl)
+                let gifImage = GifImage(contentsOf: fileUrl)
                 DispatchQueue.main.async { [weak self] in
                     if let strongSelf = self, strongSelf.gifUrl == fileUrl {
                         strongSelf.gifImage = gifImage
@@ -199,7 +200,7 @@ class BasicGIFImageView: UIImageView {
                     } catch {
                         debugPrint(error)
                     }
-                    let gifImage = GIFImage(data: data)
+                    let gifImage = GifImage(data: data)
                     DispatchQueue.main.async { [weak self] in
                         if let strongSelf = self, strongSelf.gifUrl == fileUrl {
                             strongSelf.gifImage = gifImage

@@ -88,7 +88,7 @@ extension PayPasswordView: UITextFieldDelegate {
             }
             if text.count == 6 {
                 textField.text = text
-                endInput?(text.subString(to: 6))
+                endInput?(text.substring(to: 6))
             }
         }
 
