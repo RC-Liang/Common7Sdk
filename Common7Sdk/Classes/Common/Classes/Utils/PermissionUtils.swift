@@ -20,37 +20,36 @@ import Foundation
 
 public enum PermissionType {
     case unknown    // 未知
-    // case contacts  // contacts
+    case contacts   // contacts
     case photo      // photo
     case camera     // camera
     case microphone // 麦克风
-    // case location  // location
+    case location   // location
 }
 
 public struct PermissionUtils {
     
-    static public func permission(type: PermissionType, success: @escaping () -> ()) {
+    static public func permission(type: PermissionType, success: (() -> Void)? = nil) {
         
         switch type {
-        case .unknown:
-            break
-            // case .contacts:
-            //     contactPermission(success)
+        case .contacts:
+            contactPermission(success)
         case .photo:
             photoPermission(success)
         case .camera:
             cameraPermission(success)
         case .microphone:
             microphonePermission(success)
-            // case .location:
-            //     locationPermission(success)
-            
+        case .location:
+            locationPermission(success)
+        default:
+            break
         }
     }
     
     // MARK: contacts权限
-//    static fileprivate func contactPermission(_ success: @escaping () -> ()) {
-//
+    static fileprivate func contactPermission(_ success: (() -> Void)?) {
+
 //        let authStatus = CNContactStore.authorizationStatus(for: .contacts)
 //
 //        switch authStatus {
@@ -75,29 +74,29 @@ public struct PermissionUtils {
 //        @unknown default:
 //            break
 //        }
-//    }
+    }
 
     // MARK: photo权限
-    static func photoPermission(_ success: @escaping () -> ()) {
+    static func photoPermission(_ success: (() -> Void)? = nil) {
         
         let authStatus = PHPhotoLibrary.authorizationStatus()
         
         if authStatus == .authorized {
-            success()
+            success?()
         } else if authStatus == .restricted || authStatus == .denied {
             configError(type: .photo)
         } else if #available(iOS 14, *), authStatus == .limited {
-            success()
+            success?()
         } else if authStatus == .notDetermined {
             PHPhotoLibrary.requestAuthorization { status in
                 DispatchQueue.main.async {
                     
                     if status == .authorized {
-                        success()
+                        success?()
                     } else if status == .restricted || status == .denied {
                         self.configError(type: .photo)
                     } else if #available(iOS 14, *), status == .limited {
-                        success()
+                        success?()
                     }
                 }
             }
@@ -105,11 +104,11 @@ public struct PermissionUtils {
     }
     
     // MARK: camera权限
-    static fileprivate func cameraPermission(_ success: @escaping () -> ()) {
+    static fileprivate func cameraPermission(_ success: (() -> Void)? = nil) {
         
         // 模拟器没有摄像头
         guard !(TARGET_OS_IPHONE == 1 && TARGET_IPHONE_SIMULATOR == 1)  else {
-            configError(type: .unknown)
+            alertSimulator()
             return
         }
         
@@ -121,7 +120,7 @@ public struct PermissionUtils {
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 DispatchQueue.main.async {
                     if granted {
-                        success()
+                        success?()
                     } else {
                         self.configError(type: .camera)
                     }
@@ -130,14 +129,14 @@ public struct PermissionUtils {
         case .restricted, .denied:
             configError(type: .camera)
         case .authorized:
-            success()
+            success?()
         @unknown default:
             break
         }
     }
     
     // MARK: 麦克风权限
-    static fileprivate func microphonePermission(_ success: @escaping () -> ()) {
+    static fileprivate func microphonePermission(_ success: (() -> Void)? = nil) {
         
         let authStatus = AVCaptureDevice.authorizationStatus(for: .audio)
         switch authStatus {
@@ -146,7 +145,7 @@ public struct PermissionUtils {
             AVAudioSession.sharedInstance().requestRecordPermission { granted in
                 DispatchQueue.main.async {
                     if granted {
-                        success()
+                        success?()
                     } else {
                         self.configError(type: .microphone)
                     }
@@ -156,17 +155,17 @@ public struct PermissionUtils {
         case .restricted, .denied:
             configError(type: .microphone)
         case .authorized:
-            success()
+            success?()
         @unknown default:
             break
         }
     }
     
     // MARK: location权限
-//    static fileprivate func locationPermission(_ success: @escaping () -> ()) {
-//
+    static fileprivate func locationPermission(_ success: (() -> Void)? = nil) {
+
 //        let manager = CLLocationManager()
-//
+
 //        if #available(iOS 14.0, *) {
 //            switch manager.authorizationStatus {
 //
@@ -195,8 +194,8 @@ public struct PermissionUtils {
 //            }
 //
 //        }
-//
-//    }
+
+    }
     
     // MARK: 无权限 弹窗提示
     static fileprivate func configError(type: PermissionType, isChinese: Bool = true) {
@@ -225,21 +224,18 @@ public struct PermissionUtils {
         
         if name != "unknown" && name != "未知权限" {
             let open = UIAlertAction.init(title: isChinese ? "打开" : "Open", style: .default) { action in
-                
-                // UIApplicationOpenSettingsURLString
-                guard let url: URL = URL.init(string: UIApplication.openSettingsURLString),
-                      UIApplication.shared.canOpenURL(url) else {
-                    return
+                if let url: URL = URL.init(string: UIApplication.openSettingsURLString),
+                   UIApplication.shared.canOpenURL(url)  {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 }
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
-            
             alertController.addAction(open)
         }
         
         alertController.addAction(cancel)
-    
-        UIKitCommon.rootViewController()?.present(alertController, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            UIKitCommon.currentVC()?.present(alertController, animated: true, completion: nil)
+        }
     }
     
     
@@ -247,19 +243,29 @@ public struct PermissionUtils {
     static fileprivate func config(type: PermissionType, isChinese: Bool) -> String {
         
         switch type {
-        
-        case .unknown:
-            return isChinese ? "未知权限" : "unknown"
-            // case .contacts:
-            // return isChinese ? "联系人" : "contacts"
+        case .contacts:
+            return isChinese ? "联系人" : "contacts"
         case .photo:
             return isChinese ? "相册" : "photo"
         case .camera:
             return isChinese ? "照相机" : "camera"
         case .microphone:
             return isChinese ? "麦克风" : "audio"
-            // case .location:
-            // return isChinese ? "位置" : "location"
+        case .location:
+            return isChinese ? "位置" : "location"
+        default:
+            return isChinese ? "未知权限" : "unknown"
+        }
+    }
+    
+    // 模拟器没有相机权限
+    static fileprivate func alertSimulator(_ isChinese: Bool = true) {
+       
+        let alertController = UIAlertController.init(title: "提示", message: "模拟器没有摄像头权限", preferredStyle: .alert)
+        let cancel = UIAlertAction.init(title: isChinese ? "取消" : "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancel)
+        DispatchQueue.main.async {
+            UIKitCommon.rootViewController()?.present(alertController, animated: true, completion: nil)
         }
     }
 }
