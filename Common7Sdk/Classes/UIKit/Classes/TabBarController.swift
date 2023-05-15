@@ -38,5 +38,13 @@ public class TabBarController: UITabBarController {
         // frame.size.height = frame.size.height + UIKitCommon.safeBottom
         // effectView.frame = frame
         // tabBar.insertSubview(effectView, at: 0)
+        
+        //        insertImControllers()
+        //
+        //        self.viewControllers?.forEach {
+        //            if let navi = $0 as? UINavigationController {
+        //                navi.viewControllers.first?.view.setNeedsLayout()
+        //            }
+        //        }
     }
 }
